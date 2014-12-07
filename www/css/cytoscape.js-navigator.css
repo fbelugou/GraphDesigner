@@ -1,0 +1,58 @@
+body { 
+  font: 14px helvetica neue, helvetica, arial, sans-serif;
+  overflow: hidden;
+  position: relative;
+}
+
+#cy {
+	width: 80%;
+	height: 90%;
+	right:0;
+	left:0;
+	bottom: 0;
+	border: 1px solid;
+}
+#footer{
+	width: 100%;
+	bottom: 0;
+	right: 0;
+}
+.cytoscape-navigator{
+	position: fixed;
+	border: 1px solid;
+	background: rgba(255,255,255,0.8);
+	z-index: 99999;
+	width: 10%;
+	height: 20%;
+	bottom:5%;
+	right: 20%;
+	overflow: hidden;
+}
+
+.cytoscape-navigator > canvas{
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 101;
+}
+
+.cytoscape-navigatorView{
+	position: absolute;
+	top: 0;
+	left: 0;
+	cursor: move;
+	background: #B7E1ED;
+	-moz-opacity: 0.50;
+	opacity: 0.50;
+	-ms-filter:"progid:DXImageTransform.Microsoft.Alpha"(Opacity=50);
+	z-index: 102;
+}
+
+.cytoscape-navigatorOverlay{
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	z-index: 103;
+}
