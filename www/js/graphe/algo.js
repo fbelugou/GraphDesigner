@@ -302,7 +302,8 @@ Graphe.prototype.bfs = function (s){
    return retour; 
 }
 
-Graphe.prototype.colorationNaive= function(s){
+Graphe.prototype.colorPerso= function(s){
+  
 	var i;
 	s=String(s);
 	var color=[];
@@ -346,7 +347,15 @@ Graphe.prototype.colorGlouton = function (){
 
 }
 
+Graphe.prototype.colorFabien = function (){
+  var couleurPere = [];
+  var color= [];
 
+  while (color.length < this.G.nodes().length){
+    
+  }
+
+} 
 
 
 //Tableau associatif de coloration 'color' type de couleur int color[id].couleur //   
