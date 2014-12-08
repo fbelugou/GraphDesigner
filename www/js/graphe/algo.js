@@ -303,11 +303,9 @@ Graphe.prototype.bfs = function (s) {
    return retour;
 }
 
-<<<<<<< HEAD
+
 Graphe.prototype.colorPerso = function(s) {
-=======
-Graphe.prototype.colorPerso= function(s){
->>>>>>> 4b86fecd4cf492e36f0b8f36222f7ac7eac5d244
+
   
 	var i;
 	s=String(s);
@@ -323,10 +321,13 @@ Graphe.prototype.colorPerso= function(s){
 	var file=[];
 	file.push(s);
 	while(file.length > 0){
+
 		s=file[0];
 		file.shift();
 		console.log(s);
+
 		  for(k=0; k < this.adjacence[s].length; k++){
+
 			var y = this.adjacence[s][k].target;
 
 			if (color[s][0].couleur == color[y][0].couleur){
@@ -358,13 +359,50 @@ Graphe.prototype.colorGlouton = function () {
 
 }
 
-Graphe.prototype.colorFabien = function (){
-  var couleurPere = [];
+Graphe.prototype.colorFabien = function (s,step) {
+  var t=0;
+  var couleurPere =[];
+  for(i=0; i<this.G.nodes().length; i++) couleurPere[this.G.nodes()[i].data().id] = [];
   var color= [];
+  var v = 0;
+  couleurPere[s].push(-1);
+  do{
+    var i;
+    var max = -1;
+    var idmax;
+    for(i=0; i<this.G.nodes().length; i++){
 
-  while (color.length < this.G.nodes().length){
+      if(couleurPere[this.G.nodes()[i].data().id] != undefined){
+
+        if(couleurPere[this.G.nodes()[i].data().id].length > max){
+
+          max = couleurPere[this.G.nodes()[i].data().id].length;
+          idmax = this.G.nodes()[i].data().id;
+
+      
+        }
+      }
+    }
+
+    var colorAssocie = 0;
+    for(i=0; i < couleurPere[idmax].length; i++) {if (couleurPere[idmax].indexOf(colorAssocie) > -1) colorAssocie++;}
+    console.log(couleurPere);
+    color[idmax]=colorAssocie;
+    delete couleurPere[idmax];
+
+    for(i=0; i < this.adjacence[idmax].length; i++){
+      
+        if(couleurPere[this.adjacence[idmax][i].target] != undefined)
+              couleurPere[this.adjacence[idmax][i].target].push(color[idmax]);
+    }
+
+    v++;
     
-  }
+    t++;
+
+
+  }while (v < this.G.nodes().length && t < step);
+  return color;
 
 } 
 
@@ -375,7 +413,7 @@ Graphe.prototype.colorationParseCss = function (color) {
 	var myColor = randomColor({count: this.G.nodes().length});
 
   var i;
-  for(i=0; i < this.G.nodes().length ;i++)    this.G.nodes()[i].css("background-color", myColor[color[this.G.nodes()[i].data().id][0].couleur]);
+  for(i=0; i < this.G.nodes().length ;i++)    this.G.nodes()[i].css("background-color", myColor[color[this.G.nodes()[i].data().id]]);
 
 	//MAJ  css couleur node//
 
@@ -397,11 +435,9 @@ Graphe.prototype.parcoursLargeur = function(x) {
 //Test/
 
 
-var monGraphe = new Graphe([[1,2],[1,5],[2,3],[2,4],[2,8],[2,9],[4,8],[4,9],[5,4],[5,2],[6,1],[6,5],[7,1],[7,5],[9,3]],false,6);
+var monGraphe = new Graphe([[1,2],[1,3],[1,4],[2,6],[2,3],[3,8],[4,5],[4,9],[4,10],[5,10],[5,6],[6,7],[6,10],[7,10],[7,8],[8,10],[8,9],[9,10]],false,6);
 
-monGraphe.parcoursLargeur(1);
-
-
+//monGraphe.parcoursLargeur(1);
 
 
 ///////////////////////////////////////////////////////////////
