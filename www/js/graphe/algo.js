@@ -67,17 +67,17 @@ var style1 = cytoscape.stylesheet()
         'transition-property': 'background-color, line-color, target-arrow-color',
         'transition-duration': '0.5s'
       })
-         .selector('.nodeVisite:selected')
+       .selector('.nodeVisite:selected')
       .css({
 
-        'text-outline-color': '#61bffc',
-        'background-color': '#61bffc',
+        
         'border-color': 'red',
         'border-width':5,
         'target-arrow-color': '#61bffc',
         'transition-property': 'background-color, line-color, target-arrow-color',
         'transition-duration': '0.5s'
       });
+	
 
 
 ///////////////////////////////////////////////////////////////
@@ -221,12 +221,14 @@ function Graphe  (Tadjacence,Boriente,root,Sstyle){
              if(this.G.edges('[id=\''+A0+'-'+A1+'\']').length == 0) 
                  this.G.add( { group:"edges", data: {id: A0+'-'+A1, source: A0, target:A1,weight: A2} } );        
                  this.adjacence[A0].push( {target:A1, weight:A2} );
+		 if(!Boriente) this.adjacence[A1].push( {target:A0, weight:A2} );
               }
 
             else{
               if(this.G.edges('[id=\''+A0+'-'+A1+'\']').length == 0) 
                  this.G.add( { group:"edges", data: {id: A0+'-'+A1, source: A0, target:A1} } ); 
                  this.adjacence[A0].push( {target:A1} );
+		 if(!Boriente) this.adjacence[A1].push( {target:A0} );
             }
        
           }
@@ -300,6 +302,68 @@ Graphe.prototype.bfs = function (s){
    return retour; 
 }
 
+Graphe.prototype.colorationNaive= function(s){
+	var i;
+	s=String(s);
+	var color=[];
+	var sommetInit;
+  var visite =[];
+	for(i=0; i < this.G.nodes().length; i++) {
+		sommetInit = this.G.nodes()[i].data().id;
+		color[sommetInit]=[];
+		color[sommetInit].push({id:sommetInit, couleur:0});
+    visite[sommetInit]=0;
+	}
+	var file=[];
+	file.push(s);
+	while(file.length > 0){
+		s=file[0];
+		file.shift();
+		console.log(s);
+		  for(k=0; k < this.adjacence[s].length; k++){
+			var y = this.adjacence[s][k].target;	
+
+			if (color[s][0].couleur == color[y][0].couleur){
+				color[y][0].couleur = color[y][0].couleur+1;
+        console.log(y);
+        visite[y] = 1;
+        file.push(y);
+							
+			}
+      else if (visite[y] == 0){
+        visite[y] = 1;
+        file.push(y);
+      }		
+		}
+	}	
+	
+	return color;
+}
+
+Graphe.prototype.colorGlouton = function (){
+	
+	
+
+}
+
+
+
+
+//Tableau associatif de coloration 'color' type de couleur int color[id].couleur //   
+Graphe.prototype.colorationParseCss = function (color){
+	var myColor = randomColor({
+		count: this.G.nodes().length
+	});
+  var i;
+  for(i=0; i < this.G.nodes().length ;i++)    this.G.nodes()[i].css("background-color", myColor[color[this.G.nodes()[i].data().id][0].couleur]);
+
+	//MAJ  css couleur node//
+	
+}
+
+
+
+
 
 //var parcoursLareur = function(x){
 Graphe.prototype.parcoursLargeur = function(x) {
@@ -313,7 +377,7 @@ Graphe.prototype.parcoursLargeur = function(x) {
 //Test/ 
 
 
-var monGraphe = new Graphe([[1,2],[1,5],[2,3],[2,4],[2,8],[2,9],[4,8],[4,9],[5,4],[5,2],[6,1],[6,5],[7,1],[7,5],[9,3]],true,6);
+var monGraphe = new Graphe([[1,2],[1,5],[2,3],[2,4],[2,8],[2,9],[4,8],[4,9],[5,4],[5,2],[6,1],[6,5],[7,1],[7,5],[9,3]],false,6);
 
 monGraphe.parcoursLargeur(1);
 
@@ -332,8 +396,8 @@ $('#cy').cyNavigator({
           thumbnailLiveFramerate: false,
           dblClickDelay: 200
 })
-window.onresize = function(){
-  monGraphe.G.resize();
-  monGraphe.G.fit();
+	window.onresize = function(){
+	monGraphe.G.resize();
+	monGraphe.G.fit();
 }
 //});
