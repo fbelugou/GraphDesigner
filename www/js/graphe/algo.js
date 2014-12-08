@@ -303,12 +303,8 @@ Graphe.prototype.bfs = function (s) {
    return retour;
 }
 
-<<<<<<< HEAD
-Graphe.prototype.colorPerso = function(s) {
-=======
 Graphe.prototype.colorPerso= function(s){
->>>>>>> 4b86fecd4cf492e36f0b8f36222f7ac7eac5d244
-  
+
 	var i;
 	s=String(s);
 	var color=[];
@@ -348,13 +344,75 @@ Graphe.prototype.colorPerso= function(s){
 
 Graphe.prototype.colorNaif = function() {
 
+  var color = [];
 
+  for (var i = 0; i < this.G.nodes().length; i++) {
+
+    var sommet = this.G.nodes()[i].data().id;
+    color[sommet] = 0;
+    var j = 0;
+    while (j < this.adjacence[sommet].length) {
+
+      var voisin = this.adjacence[sommet][j].target;
+      if (voisin in color && color[sommet] == color[voisin]) {
+
+        j = 0;
+        color[sommet] += 1;
+
+      } else j += 1;
+    }
+  } return color;
+}
+
+Graphe.prototype.clone = function () {
+
+  var retour = [];
+  for (var i = 0; i < this.G.nodes().length; i++) {
+
+    retour.push(this.G.nodes()[i].data().id);
+
+  }
+
+  return retour;
 
 }
 
 Graphe.prototype.colorGlouton = function () {
 
+  var retour = [];
 
+  var file = [];
+  for (var i = 0; i < this.G.nodes().length; i++) file.push(this.G.nodes()[i].data().id);
+
+  var color = 0;
+  while (file.length > 0) {
+
+    var soute = [];
+    for (var i = 0; i < file.length; i++)  soute.push(file[i]);
+
+    while (soute.length > 0) {
+
+      var sommet = soute[0];
+      soute.shift();
+      retour[sommet] = color;
+      file.splice(file.indexOf(sommet), 1);
+
+      for (var j = 0; j < this.adjacence[sommet].length; j++) {
+
+        var successeur = this.adjacence[sommet][j].target;
+        var indice = soute.indexOf(successeur);
+
+        if (indice != -1) soute.splice(indice, 1);
+
+      }
+
+    }
+
+    color += 1;
+
+  }
+
+  return retour;
 
 }
 
@@ -363,10 +421,10 @@ Graphe.prototype.colorFabien = function (){
   var color= [];
 
   while (color.length < this.G.nodes().length){
-    
+
   }
 
-} 
+}
 
 
 //Tableau associatif de coloration 'color' type de couleur int color[id].couleur //
@@ -375,7 +433,7 @@ Graphe.prototype.colorationParseCss = function (color) {
 	var myColor = randomColor({count: this.G.nodes().length});
 
   var i;
-  for(i=0; i < this.G.nodes().length ;i++)    this.G.nodes()[i].css("background-color", myColor[color[this.G.nodes()[i].data().id][0].couleur]);
+  for(i=0; i < this.G.nodes().length ;i++)    this.G.nodes()[i].css("background-color", myColor[color[this.G.nodes()[i].data().id]]);
 
 	//MAJ  css couleur node//
 
@@ -399,7 +457,7 @@ Graphe.prototype.parcoursLargeur = function(x) {
 
 var monGraphe = new Graphe([[1,2],[1,5],[2,3],[2,4],[2,8],[2,9],[4,8],[4,9],[5,4],[5,2],[6,1],[6,5],[7,1],[7,5],[9,3]],false,6);
 
-monGraphe.parcoursLargeur(1);
+//monGraphe.parcoursLargeur(1);
 
 
 
