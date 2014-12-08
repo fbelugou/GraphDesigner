@@ -304,9 +304,9 @@ Graphe.prototype.bfs = function (s) {
 }
 
 
+
 Graphe.prototype.colorPerso = function(s) {
 
-  
 	var i;
 	s=String(s);
 	var color=[];
@@ -349,13 +349,75 @@ Graphe.prototype.colorPerso = function(s) {
 
 Graphe.prototype.colorNaif = function() {
 
+  var color = [];
 
+  for (var i = 0; i < this.G.nodes().length; i++) {
+
+    var sommet = this.G.nodes()[i].data().id;
+    color[sommet] = 0;
+    var j = 0;
+    while (j < this.adjacence[sommet].length) {
+
+      var voisin = this.adjacence[sommet][j].target;
+      if (voisin in color && color[sommet] == color[voisin]) {
+
+        j = 0;
+        color[sommet] += 1;
+
+      } else j += 1;
+    }
+  } return color;
+}
+
+Graphe.prototype.clone = function () {
+
+  var retour = [];
+  for (var i = 0; i < this.G.nodes().length; i++) {
+
+    retour.push(this.G.nodes()[i].data().id);
+
+  }
+
+  return retour;
 
 }
 
 Graphe.prototype.colorGlouton = function () {
 
+  var retour = [];
 
+  var file = [];
+  for (var i = 0; i < this.G.nodes().length; i++) file.push(this.G.nodes()[i].data().id);
+
+  var color = 0;
+  while (file.length > 0) {
+
+    var soute = [];
+    for (var i = 0; i < file.length; i++)  soute.push(file[i]);
+
+    while (soute.length > 0) {
+
+      var sommet = soute[0];
+      soute.shift();
+      retour[sommet] = color;
+      file.splice(file.indexOf(sommet), 1);
+
+      for (var j = 0; j < this.adjacence[sommet].length; j++) {
+
+        var successeur = this.adjacence[sommet][j].target;
+        var indice = soute.indexOf(successeur);
+
+        if (indice != -1) soute.splice(indice, 1);
+
+      }
+
+    }
+
+    color += 1;
+
+  }
+
+  return retour;
 
 }
 
@@ -396,6 +458,7 @@ Graphe.prototype.colorFabien = function (s,step) {
               couleurPere[this.adjacence[idmax][i].target].push(color[idmax]);
     }
 
+
     v++;
     
     t++;
@@ -404,7 +467,7 @@ Graphe.prototype.colorFabien = function (s,step) {
   }while (v < this.G.nodes().length && t < step);
   return color;
 
-} 
+}
 
 
 //Tableau associatif de coloration 'color' type de couleur int color[id].couleur //
@@ -435,7 +498,11 @@ Graphe.prototype.parcoursLargeur = function(x) {
 //Test/
 
 
+
 var monGraphe = new Graphe([[1,2],[1,3],[1,4],[2,6],[2,3],[3,8],[4,5],[4,9],[4,10],[5,10],[5,6],[6,7],[6,10],[7,10],[7,8],[8,10],[8,9],[9,10]],false,6);
+
+
+//monGraphe.parcoursLargeur(1);
 
 //monGraphe.parcoursLargeur(1);
 
