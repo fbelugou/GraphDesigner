@@ -42,11 +42,24 @@ body {
 	left:15%;
 	bottom: 0;
 }
-#control>button{
+#control>button:active{
+	border: none;
+}
+#control>button:not(#timeline_reset_btn){
+	padding: 1%;
 	background-color: #fff;
 	position: relative;
+	left: 6%;
 	top:0;
 	height: 100%
+}
+#control>#timeline_reset_btn{
+	padding: 1%;
+	background-color: #fff;
+	position: absolute;
+	top:0;
+	right: 12.5%;
+	height: 100%;
 }
 #control > .progress-bar{
 	position: absolute;
