@@ -22,6 +22,7 @@ $(function(){
     $("#timeline_reset_btn").bind('click', function(){
         progress = 0;
         pb.progressbar('value', progress);
+        pb.progressbar('value', progress);
     });
 
 
