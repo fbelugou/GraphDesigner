@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html>
+<html class="metro">
     <head>
         <meta charset="UTF-8">
         <title>Blank App Designer Project Template</title>
         <meta http-equiv="Content-type" content="text/html; charset=utf-8">
         
         <!-- CSS -->
-        <link href="css/cytoscape.js-navigator.css" rel="stylesheet" type="text/css" />
         <link rel="stylesheet" href="css/metro-bootstrap.min.css">
         <link rel="stylesheet" href="css/iconFont.min.css">
+        <link href="css/cytoscape.js-navigator.css" rel="stylesheet" type="text/css" />
 
         <!-- SCRIPT -->
         <script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
@@ -24,8 +24,7 @@
 
     </head>
        
-    <body class="metro">
-        
+    <body > 
         <nav class="navigation-bar dark">
             <div class="navigation-bar-content">
 
@@ -44,7 +43,24 @@
                 </div>
             </div>
         </nav>
+
+        <div class="panel-right">
+            <div class="tab-control dark" data-role="tab-control">
+                <ul class="tabs">
+                    <li class="active"><a href="#_page_1">Tab 1</a></li>
+                    <li><a href="#_page_2">Other Tab</a></li>
+                </ul>
+                <div class="frames">
+               
+
+                <div class="frame" id="_page_1">...</div>
+                <div class="frame" id="_page_2">...</div>
+            
+            </div>
+        </div>
+
             <div id="cy"></div>
+
     </body>
      <script type="text/javascript" src="js/graphe/algo.js"></script>
 

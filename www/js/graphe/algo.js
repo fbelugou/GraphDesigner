@@ -218,19 +218,34 @@ function Graphe  (Tadjacence,Boriente,root,Sstyle){
 
             if (this.value){
 
-             if(this.G.edges('[id=\''+A0+'-'+A1+'\']').length == 0)
+              if(this.G.edges('[id=\''+A0+'-'+A1+'\']').length == 0 && Boriente){
                  this.G.add( { group:"edges", data: {id: A0+'-'+A1, source: A0, target:A1,weight: A2} } );
                  this.adjacence[A0].push( {target:A1, weight:A2} );
-		             if(!Boriente) this.adjacence[A1].push( {target:A0, weight:A2} );
-              }
+		          }
 
-            else{
-              if(this.G.edges('[id=\''+A0+'-'+A1+'\']').length == 0 && this.G.edges('[id=\''+A1+'-'+A0+'\']').length == 0 && A0 != A1)
-                 this.G.add( { group:"edges", data: {id: A0+'-'+A1, source: A0, target:A1} } );
-                 this.adjacence[A0].push( {target:A1} );
-		             if(!Boriente) this.adjacence[A1].push( {target:A0} );
+              else if(!Boriente && this.G.edges('[id=\''+A1+'-'+A0+'\']').length == 0 && A0 != A1 && this.G.edges('[id=\''+A0+'-'+A1+'\']').length == 0){
+                this.adjacence[A1].push( {target:A0, weight:A2} );
+                this.G.add( { group:"edges", data: {id: A0+'-'+A1, source: A0, target:A1,weight: A2} } );
+                this.adjacence[A0].push( {target:A1, weight:A2} );
+              } 
+
             }
 
+            else{
+
+              if(this.G.edges('[id=\''+A0+'-'+A1+'\']').length == 0 && Boriente){
+
+                 this.G.add( { group:"edges", data: {id: A0+'-'+A1, source: A0, target:A1} } );
+                 this.adjacence[A0].push( {target:A1} );                 
+              }
+
+		          else if(!Boriente && this.G.edges('[id=\''+A1+'-'+A0+'\']').length == 0 && A0 != A1 && this.G.edges('[id=\''+A0+'-'+A1+'\']').length == 0){
+
+                this.G.add( { group:"edges", data: {id: A0+'-'+A1, source: A0, target:A1} } );
+                this.adjacence[A0].push( {target:A1} );
+                this.adjacence[A1].push( {target:A0} );
+              } 
+            }
           }
         }
         this.G.boxSelectionEnabled( true );
@@ -245,8 +260,7 @@ function Graphe  (Tadjacence,Boriente,root,Sstyle){
 Graphe.prototype.affiche = function(result) {
 
   var i;
-  for(i = 0; i < result.length; i++ )
-    setTimeout( function(ident,type,G){ G.$('#'+ident).addClass(type);},1000*i,result[i].id,result[i].type,this.G);
+  for(i = 0; i < result.length; i++ )setTimeout( function(ident,type,G){G.$('#'+ident).addClass(type);},1000*i,result[i].id,result[i].type,this.G);
 
 }
 
@@ -470,15 +484,19 @@ Graphe.prototype.colorFabien = function (s) {
 }
 
 
-//Tableau associatif de coloration 'color' type de couleur int color[id].couleur //
-Graphe.prototype.colorationParseCss = function (color) {
 
-	var myColor = randomColor({count: this.G.nodes().length});
+
+//Tableau associatif de coloration 'color' type de couleur int color[id].couleur //
+Graphe.prototype.colorCss = function (color) {
+
+	var myColor = randomColor({
+    count: this.G.nodes().length,
+    luminosity: 'dark'
+  });
 
   var i;
-  for(i=0; i < this.G.nodes().length ;i++)    this.G.nodes()[i].css("background-color", myColor[color[this.G.nodes()[i].data().id]]);
-
-	//MAJ  css couleur node//
+  //MAJ  css couleur node//
+  for(i=0; i < this.G.nodes().length ;i++)    this.G.nodes()[i].css("background-color", myColor[color[this.G.nodes()[i].data().id]]);	
 
 }
 
