@@ -88,7 +88,7 @@ var style1 = cytoscape.stylesheet()
 
  var layout1= {
               name: 'circle',
-              padding: 30,
+              padding: 100,
               directed: true,
               maximalAdjustments:10,
               fit:true
@@ -555,5 +555,6 @@ $('#cy').cyNavigator({
 	window.onresize = function(){
 	monGraphe.G.resize();
 	monGraphe.G.fit();
+
 }
 //});
