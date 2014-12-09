@@ -221,14 +221,14 @@ function Graphe  (Tadjacence,Boriente,root,Sstyle){
              if(this.G.edges('[id=\''+A0+'-'+A1+'\']').length == 0)
                  this.G.add( { group:"edges", data: {id: A0+'-'+A1, source: A0, target:A1,weight: A2} } );
                  this.adjacence[A0].push( {target:A1, weight:A2} );
-		 if(!Boriente) this.adjacence[A1].push( {target:A0, weight:A2} );
+		             if(!Boriente) this.adjacence[A1].push( {target:A0, weight:A2} );
               }
 
             else{
-              if(this.G.edges('[id=\''+A0+'-'+A1+'\']').length == 0)
+              if(this.G.edges('[id=\''+A0+'-'+A1+'\']').length == 0 && this.G.edges('[id=\''+A1+'-'+A0+'\']').length == 0 && A0 != A1)
                  this.G.add( { group:"edges", data: {id: A0+'-'+A1, source: A0, target:A1} } );
                  this.adjacence[A0].push( {target:A1} );
-		 if(!Boriente) this.adjacence[A1].push( {target:A0} );
+		             if(!Boriente) this.adjacence[A1].push( {target:A0} );
             }
 
           }
@@ -347,7 +347,7 @@ Graphe.prototype.colorPerso = function(s) {
 	return color;
 }
 
-Graphe.prototype.colorNaif = function() {
+Graphe.prototype.colorNaif = function(step) {
 
   var color = [];
 
@@ -356,10 +356,10 @@ Graphe.prototype.colorNaif = function() {
     var sommet = this.G.nodes()[i].data().id;
     color[sommet] = 0;
     var j = 0;
-    while (j < this.adjacence[sommet].length) {
+    while (j < this.adjacence[sommet].length ) {
 
       var voisin = this.adjacence[sommet][j].target;
-      if (voisin in color && color[sommet] == color[voisin]) {
+      if (color[sommet] == color[voisin]) {
 
         j = 0;
         color[sommet] += 1;
@@ -421,7 +421,7 @@ Graphe.prototype.colorGlouton = function () {
 
 }
 
-Graphe.prototype.colorFabien = function (s,step) {
+Graphe.prototype.colorFabien = function (s) {
   var t=0;
   var couleurPere =[];
   for(i=0; i<this.G.nodes().length; i++) couleurPere[this.G.nodes()[i].data().id] = [];
@@ -464,7 +464,7 @@ Graphe.prototype.colorFabien = function (s,step) {
     t++;
 
 
-  }while (v < this.G.nodes().length && t < step);
+  }while (v < this.G.nodes().length);
   return color;
 
 }
@@ -499,8 +499,23 @@ Graphe.prototype.parcoursLargeur = function(x) {
 
 
 
-var monGraphe = new Graphe([[1,2],[1,3],[1,4],[2,6],[2,3],[3,8],[4,5],[4,9],[4,10],[5,10],[5,6],[6,7],[6,10],[7,10],[7,8],[8,10],[8,9],[9,10]],false,6);
+//var monGraphe = new Graphe([[1,2],[1,3],[1,4],[2,6],[2,3],[3,8],[4,5],[4,9],[4,10],[5,10],[5,6],[6,7],[6,10],[7,10],[7,8],[8,10],[8,9],[9,10]],false,6);
+//var monGraphe = new Graphe([[1,2],[1,3],[1,6],[1,7],[2,3],[2,6],[2,7],[2,5],[3,4],[3,8],[4,8],[4,5],[5,6]],false,6);
 
+
+grapheAleatoire = function(n){
+  var retour=[];
+  for(i=0; i<n ;i++){
+    var nbarete = Math.floor((Math.random() * (4)) + 1);
+    for(j=0; j < nbarete;j++){
+      retour.push([i+1,Math.floor((Math.random() * n) + 1)]);
+    }
+  }
+    return retour;
+}
+
+//var monGraphe = new Graphe([[1,2],[1,3],[2,4],[2,5],[3,4],[3,6],[4,5],[4,6],[5,6]],false,6);
+var monGraphe = new Graphe(grapheAleatoire(7),false,6);
 
 //monGraphe.parcoursLargeur(1);
 
