@@ -21,8 +21,12 @@ $(function(){
 
     $("#timeline_reset_btn").bind('click', function(){
         progress = 0;
+        clearInterval(interval);
         pb.progressbar('value', progress);
         pb.progressbar('value', progress);
+
+        $("#timeline_play_btn").find('i')[0].className='icon-play';
+        status ="play";
     });
 
 

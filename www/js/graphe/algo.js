@@ -204,12 +204,12 @@ function Graphe  (Tadjacence,Boriente,root,Sstyle){
 
             //Create Nodes//
             if(this.G.nodes('[id=\''+A0+'\']').length == 0) {
-                this.G.add( { group:"nodes", data: {id: A0} } );
+                this.G.add( { group:"nodes", data: {id: A0 ,degreE:0, degreS: 0, degre:0} } );
                 this.adjacence[A0]=[];
                 console.log(A0);
             }
             if(this.G.nodes('[id=\''+A1+'\']').length == 0) {
-                this.G.add( { group:"nodes", data: {id: A1} } );
+                this.G.add( { group:"nodes", data: {id: A1,degreE:0, degreS: 0,degre:0} } );
                 this.adjacence[A1]=[];
             }
 
@@ -221,12 +221,16 @@ function Graphe  (Tadjacence,Boriente,root,Sstyle){
               if(this.G.edges('[id=\''+A0+'-'+A1+'\']').length == 0 && Boriente){
                  this.G.add( { group:"edges", data: {id: A0+'-'+A1, source: A0, target:A1,weight: A2} } );
                  this.adjacence[A0].push( {target:A1, weight:A2} );
+                 this.G.getElementById(A0).data().degreS +=1;
+                 this.G.getElementById(A1).data().degreE +=1;
 		          }
 
               else if(!Boriente && this.G.edges('[id=\''+A1+'-'+A0+'\']').length == 0 && A0 != A1 && this.G.edges('[id=\''+A0+'-'+A1+'\']').length == 0){
                 this.adjacence[A1].push( {target:A0, weight:A2} );
                 this.G.add( { group:"edges", data: {id: A0+'-'+A1, source: A0, target:A1,weight: A2} } );
                 this.adjacence[A0].push( {target:A1, weight:A2} );
+                this.G.getElementById(A0).data().degre +=1;
+                this.G.getElementById(A1).data().degre +=1;
               } 
 
             }
@@ -236,7 +240,9 @@ function Graphe  (Tadjacence,Boriente,root,Sstyle){
               if(this.G.edges('[id=\''+A0+'-'+A1+'\']').length == 0 && Boriente){
 
                  this.G.add( { group:"edges", data: {id: A0+'-'+A1, source: A0, target:A1} } );
-                 this.adjacence[A0].push( {target:A1} );                 
+                 this.adjacence[A0].push( {target:A1} );       
+                 this.G.getElementById(A0).data().degreS +=1;
+                 this.G.getElementById(A1).data().degreE +=1;
               }
 
 		          else if(!Boriente && this.G.edges('[id=\''+A1+'-'+A0+'\']').length == 0 && A0 != A1 && this.G.edges('[id=\''+A0+'-'+A1+'\']').length == 0){
@@ -244,6 +250,8 @@ function Graphe  (Tadjacence,Boriente,root,Sstyle){
                 this.G.add( { group:"edges", data: {id: A0+'-'+A1, source: A0, target:A1} } );
                 this.adjacence[A0].push( {target:A1} );
                 this.adjacence[A1].push( {target:A0} );
+                this.G.getElementById(A0).data().degre +=1;
+                this.G.getElementById(A1).data().degre +=1;
               } 
             }
           }
@@ -438,38 +446,56 @@ Graphe.prototype.colorGlouton = function () {
 Graphe.prototype.colorFabien = function (s) {
   var t=0;
   var couleurPere =[];
-  for(i=0; i<this.G.nodes().length; i++) couleurPere[this.G.nodes()[i].data().id] = [];
+  var couleurPereDiff =[];
+  for(i=0; i<this.G.nodes().length; i++) {
+    couleurPere[this.G.nodes()[i].data().id] = [];
+    couleurPereDiff[this.G.nodes()[i].data().id] = 0;
+  }
+
   var color= [];
   var v = 0;
   couleurPere[s].push(-1);
+
   do{
     var i;
     var max = -1;
+    var maxDegre= -1;
+    var maxDifference=-1;
     var idmax;
-    for(i=0; i<this.G.nodes().length; i++){
+
+    for(i=0; i < this.G.nodes().length; i++){
 
       if(couleurPere[this.G.nodes()[i].data().id] != undefined){
 
-        if(couleurPere[this.G.nodes()[i].data().id].length > max){
+        if( (couleurPere[this.G.nodes()[i].data().id].length > max) ||
+         (couleurPere[this.G.nodes()[i].data().id].length == max && couleurPereDiff[this.G.nodes()[i].data().id] > maxDifference) ||
+         (couleurPere[this.G.nodes()[i].data().id].length == max && couleurPereDiff[this.G.nodes()[i].data().id] == maxDifference && this.G.nodes()[i].data().degre > maxDegre)){
 
           max = couleurPere[this.G.nodes()[i].data().id].length;
           idmax = this.G.nodes()[i].data().id;
-
+          maxDifference = couleurPereDiff[this.G.nodes()[i].data().id];
+          maxDegre = this.G.nodes()[i].data().degre;
+          //console.log(couleurPere[this.G.nodes()[i].data().id].length+String(maxDegre) + String(maxDifference));
       
         }
       }
     }
 
     var colorAssocie = 0;
-    for(i=0; i < couleurPere[idmax].length; i++) {if (couleurPere[idmax].indexOf(colorAssocie) > -1) colorAssocie++;}
+    for(i = 0; i < couleurPere[idmax].length; i++) {if (couleurPere[idmax].indexOf(colorAssocie) > -1) colorAssocie++;}
     console.log(couleurPere);
-    color[idmax]=colorAssocie;
+    color[idmax] = colorAssocie;
     delete couleurPere[idmax];
 
-    for(i=0; i < this.adjacence[idmax].length; i++){
+    for(i = 0; i < this.adjacence[idmax].length; i++){
       
-        if(couleurPere[this.adjacence[idmax][i].target] != undefined)
+        if(couleurPere[this.adjacence[idmax][i].target] != undefined){
+              if(couleurPere[this.adjacence[idmax][i].target].indexOf(color[idmax]) == -1) {
+                couleurPereDiff[this.adjacence[idmax][i].target] += 1;
+              }
               couleurPere[this.adjacence[idmax][i].target].push(color[idmax]);
+        }
+
     }
 
 
@@ -518,9 +544,9 @@ Graphe.prototype.parcoursLargeur = function(x) {
 
 
 //var monGraphe = new Graphe([[1,2],[1,3],[1,4],[2,6],[2,3],[3,8],[4,5],[4,9],[4,10],[5,10],[5,6],[6,7],[6,10],[7,10],[7,8],[8,10],[8,9],[9,10]],false,6);
-//var monGraphe = new Graphe([[1,2],[1,3],[1,6],[1,7],[2,3],[2,6],[2,7],[2,5],[3,4],[3,8],[4,8],[4,5],[5,6]],false,6);
+var monGraphe = new Graphe([[1,2],[1,3],[1,6],[1,7],[2,3],[2,6],[2,7],[2,5],[3,4],[3,8],[4,8],[4,5],[5,6]],false,6);
 
-
+/*
 grapheAleatoire = function(n){
   var retour=[];
   for(i=0; i<n ;i++){
@@ -531,14 +557,14 @@ grapheAleatoire = function(n){
   }
     return retour;
 }
-
+*/
 //var monGraphe = new Graphe([[1,2],[1,3],[2,4],[2,5],[3,4],[3,6],[4,5],[4,6],[5,6]],false,6);
-var monGraphe = new Graphe(grapheAleatoire(7),false,6);
-
+//var monGraphe = new Graphe(grapheAleatoire(7),false,6);
+/*
 //monGraphe.parcoursLargeur(1);
 
 //monGraphe.parcoursLargeur(1);
-
+*/
 
 ///////////////////////////////////////////////////////////////
 
