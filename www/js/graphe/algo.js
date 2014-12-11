@@ -206,7 +206,7 @@ function Graphe  (Tadjacence,Boriente,root,Sstyle){
             if(this.G.nodes('[id=\''+A0+'\']').length == 0) {
                 this.G.add( { group:"nodes", data: {id: A0 ,degreE:0, degreS: 0, degre:0} } );
                 this.adjacence[A0]=[];
-                console.log(A0);
+               
             }
             if(this.G.nodes('[id=\''+A1+'\']').length == 0) {
                 this.G.add( { group:"nodes", data: {id: A1,degreE:0, degreS: 0,degre:0} } );
@@ -259,6 +259,9 @@ function Graphe  (Tadjacence,Boriente,root,Sstyle){
         this.G.boxSelectionEnabled( true );
         this.G.resize();
 }
+
+
+
 ///////////////////////////////////////////////////////////////
 
               //Affichage//
@@ -346,7 +349,6 @@ Graphe.prototype.colorPerso = function(s) {
 
 		s=file[0];
 		file.shift();
-		console.log(s);
 
 		  for(k=0; k < this.adjacence[s].length; k++){
 
@@ -354,7 +356,6 @@ Graphe.prototype.colorPerso = function(s) {
 
 			if (color[s][0].couleur == color[y][0].couleur){
 				color[y][0].couleur = color[y][0].couleur+1;
-        console.log(y);
         visite[y] = 1;
         file.push(y);
 
@@ -443,7 +444,7 @@ Graphe.prototype.colorGlouton = function () {
 
 }
 
-Graphe.prototype.colorFabien = function (s) {
+Graphe.prototype.colorBelugou = function (s) {
   var t=0;
   var couleurPere =[];
   var couleurPereDiff =[];
@@ -483,7 +484,7 @@ Graphe.prototype.colorFabien = function (s) {
 
     var colorAssocie = 0;
     for(i = 0; i < couleurPere[idmax].length; i++) {if (couleurPere[idmax].indexOf(colorAssocie) > -1) colorAssocie++;}
-    console.log(couleurPere);
+   // console.log(couleurPere);
     color[idmax] = colorAssocie;
     delete couleurPere[idmax];
 
@@ -502,7 +503,6 @@ Graphe.prototype.colorFabien = function (s) {
     v++;
     
     t++;
-
 
   }while (v < this.G.nodes().length);
   return color;
@@ -544,9 +544,16 @@ Graphe.prototype.parcoursLargeur = function(x) {
 
 
 //var monGraphe = new Graphe([[1,2],[1,3],[1,4],[2,6],[2,3],[3,8],[4,5],[4,9],[4,10],[5,10],[5,6],[6,7],[6,10],[7,10],[7,8],[8,10],[8,9],[9,10]],false,6);
-var monGraphe = new Graphe([[1,2],[1,3],[1,6],[1,7],[2,3],[2,6],[2,7],[2,5],[3,4],[3,8],[4,8],[4,5],[5,6]],false,6);
-
+//var monGraphe = new Graphe([[1,2],[1,3],[1,6],[1,7],[2,3],[2,6],[2,7],[2,5],[3,4],[3,8],[4,8],[4,5],[5,6]],false,6);
+//var monGraphe = new Graphe([[1,2],[1,6],[2,3],[2,6],[3,1],[3,4],[3,5],[4,2],[4,5],[5,1],[6,4],[6,5]],false,6);
+var monGraphe = new Graphe([['a','b'],['a','g'],['a','f'],
+                            ['b','c'],['b','g'],
+                            ['c','g'],['c','d'],
+                            ['d','g'],['d','e'],
+                            ['e','g'],['e','f'],
+                            ['f','g']],false);
 /*
+
 grapheAleatoire = function(n){
   var retour=[];
   for(i=0; i<n ;i++){
@@ -557,14 +564,47 @@ grapheAleatoire = function(n){
   }
     return retour;
 }
-*/
 //var monGraphe = new Graphe([[1,2],[1,3],[2,4],[2,5],[3,4],[3,6],[4,5],[4,6],[5,6]],false,6);
 //var monGraphe = new Graphe(grapheAleatoire(7),false,6);
-/*
 //monGraphe.parcoursLargeur(1);
 
 //monGraphe.parcoursLargeur(1);
+
+
+
+
+//console.log(window['graphe'+0]);
+   
+var cpt=0;
+var monGraphe = new Graphe(window['graph'+cpt],false);
+var c = monGraphe.colorBelugou('1');
+monGraphe.colorCss(c);
+cpt+=1;
+var r=0;
+var timer=setInterval("testAlgo()",1000);
+//testAlgo();
+function testAlgo(){
+  if(i==632) clearInterval(timer);
+  console.log('graph'+cpt);
+   var monGraphe = new Graphe(window['graph'+cpt],false);
+   var c = monGraphe.colorBelugou('1');
+   monGraphe.colorCss(c);
+  
+  var j;
+  var max = 0;
+  for(j=0 ; j< monGraphe.G.nodes().length; j++){
+      if(c[monGraphe.G.nodes()[j].data().id] > 3) {
+        alert("baizer");
+      }
+      if(c[monGraphe.G.nodes()[j].data().id] > max) max=c[monGraphe.G.nodes()[j].data().id];
+
+}
+  cpt+=1;
+  console.log("result:"+max);
+}
 */
+
+
 
 ///////////////////////////////////////////////////////////////
 
@@ -572,7 +612,7 @@ grapheAleatoire = function(n){
 
 ///////////////////////////////////////////////////////////////
 $('#cy').cyNavigator({
-
+          container: '.cytoscape-navigator',
           viewLiveFramerate: 0,
           thumbnailEventFramerate: 0,
           thumbnailLiveFramerate: false,

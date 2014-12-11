@@ -16,7 +16,8 @@
         <script src="js/metro.min.js"></script>       
         <script src="js/cytoscape.min.js"></script>
         <script src="js/lib/cytoscape.js-navigator.js"></script>
-	<script src="js/lib/randomColor.js"></script>
+	    <script src="js/lib/randomColor.js"></script>
+        <script src="js/lib/iscroll.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0">
 
 
@@ -24,34 +25,48 @@
 
     </head>
        
-    <body > 
-        <nav class="navigation-bar dark">
+    <body> 
+        <div class="navigation-bar" style="background-color: #000">
             <div class="navigation-bar-content">
-
-                <a href="/" class="element"><span class="icon-grid-view"></span> GrapheDesigner <sup>0.2</sup></a>
+                <div class="tablet-portrait">
+                <a href="/" class="element brand"><span class="icon-grid-view"></span> GrapheDesigner <sup>0.2</sup></a>
                 <span class="element-divider"></span>
                 <a class="pull-menu" href="#"></a>
 
-                <div class="tablet-portrait">
+               
 
                     <span class="element-divider"></span>
                     <a class="element brand" href="#"><span class="icon-spin"></span></a>
+                     
                     <a class="element brand" href="#"><span class="icon-printer"></span></a>
-                    <span class="element-divider"></span>                        
-                    <span class="element place-right">GraphViewer</span>
 
+                    <span class="element-divider place-right"></span>                        
+                     <a href="/" class="element place-right"> <span>GraphViewer</span> </a>
+                      <span class="element-divider place-right"></span> 
                 </div>
             </div>
-        </nav>
-
+        </div>
+      
+        
         <div class="panel-right">
            
             
             </div>
-        </div>
-        <div class="panel-left">
-        </div>
+        
+        <div class="panel-left"> 
+           <div id="log-panel">
+                <div class="notifications">
+    <div class="notif">
+     
+        <div class="head">Notification</div>
+        <div class="text"></div>
+    </div>
+</div>
 
+           </div>
+           <div class="cytoscape-navigator"></div>
+            
+        </div>
             <div id="cy"></div>
             <div id="control">
                 <button class="element" ><i class="icon-previous"></i></button>
@@ -63,7 +78,9 @@
                 <button class="element" id="timeline_reset_btn"><i class="icon-cycle"></i></button>             
                
             </div>
+    
     </body>
+    <script type="text/javascript" src="js/utility/declarations.js"></script>
      <script type="text/javascript" src="js/graphe/algo.js"></script>
      <script type="text/javascript" src="js/utility/control.js"></script>
 
