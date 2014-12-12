@@ -20,12 +20,28 @@
         <script src="js/lib/iscroll.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0">
 
+    <script type="text/javascript">
+     var myScroll;
 
+function loaded () {
+    myScroll = new IScroll('#wrapper', {
+        scrollbars: true,
+        mouseWheel: true,
+        interactiveScrollbars: true,
+        shrinkScrollbars: 'scale',
+        fadeScrollbars: true
+    });
+}
+
+document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
+
+
+    </script>
 
 
     </head>
        
-    <body> 
+    <body onload="loaded()"> 
         <div class="navigation-bar" style="background-color: #000">
             <div class="navigation-bar-content">
                 <div class="tablet-portrait">
@@ -56,14 +72,109 @@
         <div class="panel-left"> 
            <div id="log-panel">
                 <div class="notifications">
-    <div class="notif">
-     
-        <div class="head">Notification</div>
-        <div class="text"></div>
-    </div>
-</div>
+                    <div class="notif">             
+                        <div class="head">Notification</div>
+                        <div class="text"></div>
+                    </div>
+                </div>
 
-           </div>
+                <div id="wrapper">
+                    <div id="scroller">
+                        <ul>
+                        <li>
+                            <div class="notifications">
+                                <div class="notif">             
+                                    <div class="head"><p>Notification</p></div>
+                                    <div class="text"></div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="notifications">
+                                <div class="notif">             
+                                    <div class="head">Notification</div>
+                                    <div class="text"></div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="notifications">
+                                <div class="notif">             
+                                    <div class="head">Notification</div>
+                                    <div class="text"></div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="notifications">
+                                <div class="notif">             
+                                    <div class="head">Notification</div>
+                                    <div class="text"></div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="notifications">
+                                <div class="notif">             
+                                    <div class="head">Notification</div>
+                                    <div class="text"></div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="notifications">
+                                <div class="notif">             
+                                    <div class="head">Notification</div>
+                                    <div class="text"></div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="notifications">
+                                <div class="notif">             
+                                    <div class="head">Notification</div>
+                                    <div class="text"></div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="notifications">
+                                <div class="notif">             
+                                    <div class="head">Notification</div>
+                                    <div class="text"></div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="notifications">
+                                <div class="notif">             
+                                    <div class="head">Notification</div>
+                                    <div class="text"></div>
+                                </div>
+                            </div>
+                        </li>
+                         <li>
+                            <div class="notifications">
+                                <div class="notif">             
+                                    <div class="head">Notification</div>
+                                    <div class="text"></div>
+                                </div>
+                            </div>
+                        </li>
+                         <li>
+                            <div class="notifications">
+                                <div class="notif">             
+                                    <div class="head">Notification</div>
+                                    <div class="text"></div>
+                                </div>
+                            </div>
+                        </li>
+            
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        
            <div class="cytoscape-navigator"></div>
             
         </div>
