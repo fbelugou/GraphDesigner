@@ -186,8 +186,17 @@ function Graphe  (Tadjacence,Boriente,root,Sstyle){
                         edges: []
                 }
         });
+        if (!isNaN( Tadjacence[0][0]) ){
+              Tadjacence.sort(function(a, b){
+              if(parseInt(a[0]) == parseInt(b[0])){
+                return (parseInt(a[1]) <parseInt(b[1])) ? -1 : 1
+              }
+              else return parseInt(a[0]) - parseInt(b[0]);
+            });
+        }
 
-        Tadjacence.sort();
+        else Tadjacence.sort();
+        console.log(Tadjacence);
         for (i=0; i < Tadjacence.length;i++){
            var A=Tadjacence[i];
            var A0=String(A[0]);
@@ -276,10 +285,23 @@ Graphe.prototype.affiche = function(result) {
 }
 
 
+//Tableau associatif de coloration 'color' type de couleur int color[id].couleur //
+Graphe.prototype.colorCss = function (color) {
+
+  var myColor = randomColor({
+    count: this.G.nodes().length,
+    luminosity: 'dark'
+  });
+
+  var i;
+  //MAJ  css couleur node//
+  for(i=0; i < this.G.nodes().length ;i++)    this.G.nodes()[i].css("background-color", myColor[color[this.G.nodes()[i].data().id]]); 
+
+}
 ///////////////////////////////////////////////////////////////
                   /*ALGO*/
 
-              //PARCOURS LARGEUR//
+              //PARCOURS//
 
 ///////////////////////////////////////////////////////////////
 
@@ -289,6 +311,7 @@ Graphe.prototype.bfs = function (s) {
 
   var f = [];
   var v =[];
+  var p=[];
   var retour=[];
   var i;
   s = String(s);
@@ -296,7 +319,7 @@ Graphe.prototype.bfs = function (s) {
 
   f.push(s);
   v[s]=1;
-  retour.push({id:String(s),type:'nodeVisite'}) //Premier Sommet
+  retour.push({id:String(s),type:'nodeVisite'}); //Premier Sommet
 
 
   while(f.length>0){
@@ -313,14 +336,20 @@ Graphe.prototype.bfs = function (s) {
 
       if (v[y] == 0){
           v[y] = 1;
-
+          p[y]=s;
           f.push(y);
-          retour.push({id:s+'-'+y, type:'edgeVisite'});
+          if(!this.oriente){
+            (this.G.$('#'+y+'-'+s).length > 0) ? retour.push({id:y+'-'+s, type:'edgeVisite'}) : retour.push({id:s+'-'+y, type:'edgeVisite'});
+          }            
+          else retour.push({id:s+'-'+y, type:'edgeVisite'}); 
 
       }
-      else if (v[y] != 0){
+      else if (v[y] != 0 && p[s]!=y){
 
-         retour.push({id:s+'-'+y, type:'edgeRevisite'});
+         if(!this.oriente){
+            (this.G.$('#'+y+'-'+s).length > 0) ? retour.push({id:y+'-'+s, type:'edgeRevisite'}) : retour.push({id:s+'-'+y, type:'edgeRevisite'});
+          }            
+          else retour.push({id:s+'-'+y, type:'edgeRevisite'}); 
 
       }
     }
@@ -329,7 +358,58 @@ Graphe.prototype.bfs = function (s) {
 }
 
 
+Graphe.prototype.dfs = function(s,v,r,p) {
+    
+    (v == undefined) ? v= [] : v = v;
 
+    
+
+    s= String(s);
+    (r == undefined) ? r = [] : r = r;
+    v[s] = 1;
+    r.push({id:s,  type:"nodeVisite"});
+    (p == undefined) ? p= [] : p = p;
+
+    var i;
+    for (i = 0; i < this.adjacence[s].length; i++){
+
+        var y = this.adjacence[s][i].target;
+        if(v[y] != 1 ){
+          console.log(y);
+          if(!this.oriente){
+            (this.G.$('#'+y+'-'+s).length > 0) ? r.push({id:y+'-'+s, type:'edgeVisite'}) : r.push({id:s+'-'+y, type:'edgeVisite'});
+          }            
+          else r.push({id:s+'-'+y, type:'edgeVisite'});  
+          p[y]=s;
+          this.dfs(y,v,r,p);
+        }  
+        else{
+          if(v[y] == 1 && p[s] != y){
+            console.log(y);
+            if(!this.oriente){
+              (this.G.$('#'+y+'-'+s).length > 0) ? r.push({id:y+'-'+s, type:'edgeRevisite'}) : r.push({id:s+'-'+y, type:'edgeRevisite'});
+            }            
+            else r.push({id:s+'-'+y, type:'edgeRevisite'});  
+          }   
+        }
+    }
+    return r;
+
+}
+
+
+
+
+
+
+
+
+///////////////////////////////////////////////////////////////
+                  /*ALGO*/
+
+              //COLORATION//
+
+///////////////////////////////////////////////////////////////
 Graphe.prototype.colorPerso = function(s) {
 
 	var i;
@@ -512,19 +592,13 @@ Graphe.prototype.colorBelugou = function (s) {
 
 
 
-//Tableau associatif de coloration 'color' type de couleur int color[id].couleur //
-Graphe.prototype.colorCss = function (color) {
 
-	var myColor = randomColor({
-    count: this.G.nodes().length,
-    luminosity: 'dark'
-  });
+///////////////////////////////////////////////////////////////
+                  /*ALGO*/
 
-  var i;
-  //MAJ  css couleur node//
-  for(i=0; i < this.G.nodes().length ;i++)    this.G.nodes()[i].css("background-color", myColor[color[this.G.nodes()[i].data().id]]);	
+                  //TEST//
 
-}
+///////////////////////////////////////////////////////////////
 
 
 
@@ -543,7 +617,7 @@ Graphe.prototype.parcoursLargeur = function(x) {
 
 
 
-var monGraphe = new Graphe([[1,2],[1,3],[1,4],[2,6],[2,3],[3,8],[4,5],[4,9],[4,10],[5,10],[5,6],[6,7],[6,10],[7,10],[7,8],[8,10],[8,9],[9,10]],false,6);
+var monGraphe = new Graphe([['1','2'],['1','3'],['1','4'],['2','6'],['2','3'],['3','8'],['4','5'],['4','9'],['4','10'],['5','10'],['5','6'],['6','7'],['6','10'],['7','10'],['7','8'],['8','10'],['8','9'],['9','10']],false,6);
 //var monGraphe = new Graphe([[1,2],[1,3],[1,6],[1,7],[2,3],[2,6],[2,7],[2,5],[3,4],[3,8],[4,8],[4,5],[5,6]],false,6);
 //var monGraphe = new Graphe([[1,2],[1,6],[2,3],[2,6],[3,1],[3,4],[3,5],[4,2],[4,5],[5,1],[6,4],[6,5]],false,6);
 /*var monGraphe = new Graphe([['a','b'],['a','g'],['a','f'],
