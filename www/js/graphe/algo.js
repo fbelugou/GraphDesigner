@@ -5,6 +5,9 @@
               //STYLE//
 
 ///////////////////////////////////////////////////////////////
+
+
+//Style pour graphe oriente 
 var style1 = cytoscape.stylesheet()
     .selector(':selected')
       .css({
@@ -79,9 +82,101 @@ var style1 = cytoscape.stylesheet()
         'target-arrow-color': '#61bffc',
         'transition-property': 'background-color, line-color, target-arrow-color',
         'transition-duration': '0.5s'
+      })
+      .selector('.label')
+      .css({
+        'text-outline-color': '#61bffc',
+        'background-color': '#61bffc',
+        'line-color': 'rgba(255,255,255,0)',
+        'target-arrow-color': 'rgba(255,255,255,0)',
+        'transition-property': 'background-color, line-color, target-arrow-color',
+        'transition-duration': '0.5s'
       });
 
+//Style pour graphe non oriente// 
+var style2 = cytoscape.stylesheet()
+    .selector(':selected')
+      .css({
+        'border-color':'red',
+        'border-width':5,
+      })
+    .selector('node')
+      .css({
+        'content': 'data(id)',
+        'text-transform': "uppercase",
+        'text-valign': 'center',
+        'color':'#fff',
+        'width': 100,
+        'height':100,
+        'font-size':50,
+        'font-weight' : 'bold'
+      })
+    .selector('edge')
+      .css({
+        'width': 10,
+        'line-color': '#888',
+        'target-arrow-color': '#888',
+        'color': "#fff",
+        'mergeWidth': 2,
+        'opacity': 1,
+        'content': 'data(weight)',
+        /*'text-outline-width': 4,
+        'text-outline-color': '#888',*/
+        'curve-style':'ellipse',
+        'font-size' : 60,
+        'font-weight' : 'bold'
+      })
+    .selector('.edgeRevisite')
+      .css({
+        'text-outline-color': '#00FF00',
+        'background-color': '#00FF00',
+        'line-color': '#00FF00',
+        'target-arrow-color': '#00FF00',
+        'transition-property': 'background-color, line-color, target-arrow-color',
+        'transition-duration': '0.5s',
+        'line-style':'dashed',
+        'curve-style':'ellipse'
+      })
+     .selector('.edgeVisite')
+      .css({
 
+        'text-outline-color': '#61bffc',
+        'background-color': '#61bffc',
+        'line-color': '#61bffc',
+        'target-arrow-color': '#61bffc',
+        'transition-property': 'background-color, line-color, target-arrow-color',
+        'transition-duration': '0.5s',
+        'curve-style':'ellipse'
+      })
+       .selector('.nodeVisite')
+      .css({
+
+        'text-outline-color': '#61bffc',
+        'background-color': '#61bffc',
+        'line-color': '#61bffc',
+        'target-arrow-color': '#61bffc',
+        'transition-property': 'background-color, line-color, target-arrow-color',
+        'transition-duration': '0.5s'
+      })
+       .selector('.nodeVisite:selected')
+      .css({
+
+
+        'border-color': 'red',
+        'border-width':5,
+        'target-arrow-color': '#61bffc',
+        'transition-property': 'background-color, line-color, target-arrow-color',
+        'transition-duration': '0.5s'
+      })
+      .selector('.label')
+      .css({
+        'text-outline-color': '#61bffc',
+        'background-color': '#61bffc',
+        'line-color': 'rgba(255,255,255,0)',
+        'target-arrow-color': 'rgba(255,255,255,0)',
+        'transition-property': 'background-color, line-color, target-arrow-color',
+        'transition-duration': '0.5s'
+      });
 
 ///////////////////////////////////////////////////////////////
 
@@ -96,9 +191,6 @@ var style1 = cytoscape.stylesheet()
               directed: true,
               maximalAdjustments:10,
               fit:true
-
-
-
             };
 
 
@@ -170,25 +262,36 @@ var layoutcose={
 ///////////////////////////////////////////////////////////////
 
 
-function Graphe  (Tadjacence,Boriente,root,Sstyle){
+function Graphe  (Tadjacence,Boriente){
         this.adjacence=[];
         this.oriente=Boriente;
-        this.style=Sstyle;
         (Tadjacence[0].length == 3) ? this.value=true : this.value= false
-
-        layout1.roots='#'+String(root); //Update Racine//
-
+        if(Boriente){
         this.G = cytoscape({
-        container: $('#cy')[0],
+          container: $('#cy')[0],
 
 
-                layout: layout1,
-                style: style1,
-                elements: {
-                        nodes:  [],
-                        edges: []
-                }
-        });
+                  layout: layout1,
+                  style: style1,
+                  elements: {
+                          nodes:  [],
+                          edges: []
+                  }
+          });
+        }
+        else{
+          this.G = cytoscape({
+            container: $('#cy')[0],
+
+
+                    layout: layout1,
+                    style: style2,
+                    elements: {
+                            nodes:  [],
+                            edges: []
+                    }
+            });
+        }
         if (!isNaN( Tadjacence[0][0]) ){
               Tadjacence.sort(function(a, b){
               if(parseInt(a[0]) == parseInt(b[0])){
@@ -204,7 +307,7 @@ function Graphe  (Tadjacence,Boriente,root,Sstyle){
            var A=Tadjacence[i];
            var A0=String(A[0]);
            var A1=String(A[1]);
-          if (this.value) var A2=String(A[2]);
+          if (this.value) var A2=A[2];
 
           if((A2 == 'undefined' && this.value) || A0 === 'undefined' || A1 === 'undefined' ) {
 
@@ -538,6 +641,8 @@ Graphe.prototype.colorGlouton = function () {
 
 }
 
+
+//Coloration Naive Optimisé
 Graphe.prototype.colorBelugou = function (s) {
   var t=0;
   var couleurPere =[];
@@ -612,35 +717,34 @@ Graphe.prototype.colorBelugou = function (s) {
 
                   //TEST//
 
-///////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////
 
-
-
-
-
-//var parcoursLareur = function(x){
+//var parcoursLareur 
 Graphe.prototype.parcoursLargeur = function(x) {
 
   var result = this.bfs(x);
   this.affiche(result);
 
 }
+//var parcoursProfondeur
+Graphe.prototype.parcoursProfondeur= function(x) {
+
+  var result = this.dfs(x);
+  this.affiche(result);
+}
 
 
-//Test/
-
-
-
+/*TEST*/
 //var monGraphe = new Graphe([['1','2'],['1','3'],['1','4'],['2','6'],['2','3'],['3','8'],['4','5'],['4','9'],['4','10'],['5','10'],['5','6'],['6','7'],['6','10'],['7','10'],['7','8'],['8','10'],['8','9'],['9','10']],false,6);
 //var monGraphe = new Graphe([[1,2],[1,3],[1,6],[1,7],[2,3],[2,6],[2,7],[2,5],[3,4],[3,8],[4,8],[4,5],[5,6]],false,6);
-var monGraphe = new Graphe([[1,2,6],[1,6,2],[2,3,1],[2,6,4],[3,1,8],[3,4,2],[3,5,0],[4,2,10],[4,5,3],[5,1,4],[6,4,4],[6,5,7]],false,6);
+var monGraphe = new Graphe([[1,2,6],[1,6,2],[2,3,1],[2,6,4],[3,1,8],[3,4,2],[3,5,0],[4,2,10],[4,5,3],[5,1,4],[6,4,4],[6,5,7]],false);
 /*var monGraphe = new Graphe([['a','b'],['a','g'],['a','f'],
                             ['b','c'],['b','g'],
                             ['c','g'],['c','d'],
                             ['d','g'],['d','e'],
                             ['e','g'],['e','f'],
-                            ['f','g']],false);
-/*
+                            ['f','g']],false);*/
+
 
 grapheAleatoire = function(n){
   var retour=[];
@@ -662,7 +766,7 @@ grapheAleatoire = function(n){
 
 
 //console.log(window['graphe'+0]);
-   
+  /* 
 var cpt=0;
 var monGraphe = new Graphe(window['graph'+cpt],false);
 var c = monGraphe.colorBelugou('1');
@@ -692,14 +796,15 @@ function testAlgo(){
 }
 */
 
-var i = monGraphe.dfs('1');
-monGraphe.affiche(i);
+//var i = monGraphe.dfs('1');
+//monGraphe.affiche(i);
 
-///////////////////////////////////////////////////////////////
 
-              //PARCOURS PROFONDEUR//
 
-///////////////////////////////////////////////////////////////
+
+/////////////////////////
+/////  MINIMAP     //////
+/////////////////////////
 $('#cy').cyNavigator({
           container: '.cytoscape-navigator',
           viewLiveFramerate: 0,
@@ -707,9 +812,15 @@ $('#cy').cyNavigator({
           thumbnailLiveFramerate: false,
           dblClickDelay: 200
 })
-	window.onresize = function(){
-	monGraphe.G.resize();
-	monGraphe.G.fit();
+
+
+
+//////////////////////////////
+/////     RESIZE       ///////
+//////////////////////////////
+window.onresize = function(){
+monGraphe.G.resize();
+monGraphe.G.fit();
 
 }
 //});

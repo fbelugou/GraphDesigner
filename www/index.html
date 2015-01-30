@@ -23,17 +23,17 @@
     <script type="text/javascript">
      var myScroll;
 
-function loaded () {
-    myScroll = new IScroll('#wrapper', {
-        scrollbars: true,
-        mouseWheel: true,
-        interactiveScrollbars: true,
-        shrinkScrollbars: 'scale',
-        fadeScrollbars: true
-    });
-}
+        function loaded () {
+            myScroll = new IScroll('#wrapper', {
+                scrollbars: true,
+                mouseWheel: true,
+                interactiveScrollbars: true,
+                shrinkScrollbars: 'scale',
+                fadeScrollbars: true
+            });
+        }
 
-document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
+        document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
 
 
     </script>
@@ -45,7 +45,7 @@ document.addEventListener('touchmove', function (e) { e.preventDefault(); }, fal
         <div class="navigation-bar" style="background-color: #000">
             <div class="navigation-bar-content">
                 <div class="tablet-portrait">
-                <a href="/" class="element brand"><span class="icon-grid-view"></span> GrapheDesigner <sup>0.2</sup></a>
+                <a href="/" class="element brand"><span class="icon-grid-view"></span>GraphViewer<sup>0.2</sup></a>
                 <span class="element-divider"></span>
                 <a class="pull-menu" href="#"></a>               
 
@@ -55,7 +55,7 @@ document.addEventListener('touchmove', function (e) { e.preventDefault(); }, fal
                     <a class="element brand" href="#"><span class="icon-printer"></span></a>
 
                     <span class="element-divider place-right"></span>                        
-                     <a href="/" class="element place-right"> <span>GraphViewer</span> </a>
+                     <a href="/" class="element place-right"> <span>GrapheDesigner</span> </a>
                       <span class="element-divider place-right"></span> 
                 </div>
             </div>
@@ -116,8 +116,8 @@ document.addEventListener('touchmove', function (e) { e.preventDefault(); }, fal
         <div class="panel-left"> 
            <div id="log-panel">
                 <div class="notifications">
-                    <div class="notif">             
-                        <div class="head">Notification</div>
+                    <div class="notif notifBar">             
+                        <div class="head">Notifications</div>
                         <div class="text"></div>
                     </div>
                 </div>
@@ -127,7 +127,15 @@ document.addEventListener('touchmove', function (e) { e.preventDefault(); }, fal
                         <ul>
                         <li>
                             <div class="notifications">
-                                <div class="notif">             
+                                <div class="notif notifRevisite">             
+                                    <div class="head">Revisite de 1</div>
+                                    <div class="text"></div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="notifications">
+                                <div class="notif notifDefault">             
                                     <div class="head">Notification</div>
                                     <div class="text"></div>
                                 </div>
@@ -135,15 +143,7 @@ document.addEventListener('touchmove', function (e) { e.preventDefault(); }, fal
                         </li>
                         <li>
                             <div class="notifications">
-                                <div class="notif">             
-                                    <div class="head">Notification</div>
-                                    <div class="text"></div>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="notifications">
-                                <div class="notif">             
+                                <div class="notif notifDefault">             
                                     <div class="head">Notification</div>
                                     <div class="text"></div>
                                 </div>
@@ -251,18 +251,15 @@ document.addEventListener('touchmove', function (e) { e.preventDefault(); }, fal
                 </div>
             </div>
         
-           <div class="cytoscape-navigator"></div>
-            
+           <div class="cytoscape-navigator"></div>            
         </div>
             <div id="cy"></div>
             <div id="control">
                 <button class="element" ><i class="icon-previous"></i></button>
                 <button class="element"id="timeline_play_btn" ><i class="icon-play"></i></button>
-                <button class="element" id="timeline_next_btn"><i class="icon-next"></i></button>
-                
+                <button class="element" id="timeline_next_btn"><i class="icon-next"></i></button>                
                 <div id="timeline" class="progress-bar" data-role="progress-bar" data-color="bg-green"></div>
-
-                <button class="element" id="timeline_reset_btn"><i class="icon-cycle"></i></button>             
+                <button class="element" id="timeline_reset_btn"><i class="icon-cycle"></i></button>        
                
             </div>
     

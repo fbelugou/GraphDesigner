@@ -293,6 +293,18 @@ html,body {
 	-o-animation: text-in 1s 1 ease-out;
 	animation: text-in 1s 1 ease-out;
 }
+.notifRevisite{
+	background-color: #a1dd1b;
+	border-color:  #a1dd1b;
+}
+.notifDefault{
+	background-color: #1ba1e2;
+	border-color:  #1ba1e2;
+}
+.notifBar{
+	background-color: #888;
+	border-color:  #FFF;
+}
 
 @-webkit-keyframes flip {
       0% {-webkit-transform: rotateY(-90deg);opacity: 0;border-right-width: 30px;}
@@ -384,7 +396,7 @@ html,body {
 #wrapper {
 	position: absolute;
 	z-index: 1;
-	top: 45px;
+	top: 42px;
 	bottom: 48px;
 	height:calc(80% - 45px);
 	left: 0;
