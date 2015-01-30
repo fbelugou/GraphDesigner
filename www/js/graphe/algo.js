@@ -19,7 +19,8 @@ var style1 = cytoscape.stylesheet()
         'color':'#fff',
         'width': 100,
         'height':100,
-        'font-size':50
+        'font-size':50,
+        'font-weight' : 'bold'
       })
     .selector('edge')
       .css({
@@ -31,9 +32,11 @@ var style1 = cytoscape.stylesheet()
         'mergeWidth': 2,
         'opacity': 1,
         'content': 'data(weight)',
-        'text-outline-width': 2,
-        'text-outline-color': '#888',
-        'curve-style':'ellipse'
+        /*'text-outline-width': 4,
+        'text-outline-color': '#888',*/
+        'curve-style':'ellipse',
+        'font-size' : 60,
+        'font-weight' : 'bold'
       })
     .selector('.edgeRevisite')
       .css({
@@ -88,7 +91,8 @@ var style1 = cytoscape.stylesheet()
 
  var layout1= {
               name: 'circle',
-              padding: 100,
+              radius: 500,
+             // padding: 100,
               directed: true,
               maximalAdjustments:10,
               fit:true
@@ -167,7 +171,6 @@ var layoutcose={
 
 
 function Graphe  (Tadjacence,Boriente,root,Sstyle){
-
         this.adjacence=[];
         this.oriente=Boriente;
         this.style=Sstyle;
@@ -358,6 +361,8 @@ Graphe.prototype.bfs = function (s) {
 }
 
 
+
+
 Graphe.prototype.dfs = function(s,v,r,p) {
     
     (v == undefined) ? v= [] : v = v;
@@ -397,11 +402,20 @@ Graphe.prototype.dfs = function(s,v,r,p) {
 
 }
 
+///////////////////////////////////////////////////////////////
+                  /*ALGO*/
 
+              //Arbre Couvrant de Poid minimun//
 
-
-
-
+///////////////////////////////////////////////////////////////
+function trieAretePoid(){
+    return this.adjacence.sort(function(a,b){
+      return(a[2] < b[2]) ?  1:-1;      
+    });     
+};
+Graphe.prototype.kruskal = function(){
+  /* body... */
+};
 
 
 ///////////////////////////////////////////////////////////////
@@ -617,9 +631,9 @@ Graphe.prototype.parcoursLargeur = function(x) {
 
 
 
-var monGraphe = new Graphe([['1','2'],['1','3'],['1','4'],['2','6'],['2','3'],['3','8'],['4','5'],['4','9'],['4','10'],['5','10'],['5','6'],['6','7'],['6','10'],['7','10'],['7','8'],['8','10'],['8','9'],['9','10']],false,6);
+//var monGraphe = new Graphe([['1','2'],['1','3'],['1','4'],['2','6'],['2','3'],['3','8'],['4','5'],['4','9'],['4','10'],['5','10'],['5','6'],['6','7'],['6','10'],['7','10'],['7','8'],['8','10'],['8','9'],['9','10']],false,6);
 //var monGraphe = new Graphe([[1,2],[1,3],[1,6],[1,7],[2,3],[2,6],[2,7],[2,5],[3,4],[3,8],[4,8],[4,5],[5,6]],false,6);
-//var monGraphe = new Graphe([[1,2],[1,6],[2,3],[2,6],[3,1],[3,4],[3,5],[4,2],[4,5],[5,1],[6,4],[6,5]],false,6);
+var monGraphe = new Graphe([[1,2,6],[1,6,2],[2,3,1],[2,6,4],[3,1,8],[3,4,2],[3,5,0],[4,2,10],[4,5,3],[5,1,4],[6,4,4],[6,5,7]],false,6);
 /*var monGraphe = new Graphe([['a','b'],['a','g'],['a','f'],
                             ['b','c'],['b','g'],
                             ['c','g'],['c','d'],
@@ -678,7 +692,8 @@ function testAlgo(){
 }
 */
 
-
+var i = monGraphe.dfs('1');
+monGraphe.affiche(i);
 
 ///////////////////////////////////////////////////////////////
 
