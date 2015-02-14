@@ -302,7 +302,6 @@ function Graphe  (Tadjacence,Boriente){
         }
 
         else Tadjacence.sort();
-        console.log(Tadjacence);
         for (i=0; i < Tadjacence.length;i++){
            var A=Tadjacence[i];
            var A0=String(A[0]);
@@ -386,10 +385,31 @@ function Graphe  (Tadjacence,Boriente){
 Graphe.prototype.affiche = function(result) {
 
   var i;
-  for(i = 0; i < result.length; i++ )setTimeout( function(ident,type,G){G.$('#'+ident).addClass(type);},1000*i,result[i].id,result[i].type,this.G);
+  this.createNotification("",'Sommet actif ' +result[0].id); 
+  this.createNotification("Default",'Visite du sommet ' +result[0].id);    
 
-}
+  for(i = 0; i < result.length; i++ ){
 
+      var noeudActif;
+      if(result[i].type == "nodeVisite" )  noeudActif = result[i].id; 
+
+      setTimeout( function(ident,type,G,cl,noeudActif,i){
+      if(type == "nodeVisite" && i != 0) cl.createNotification("",'Sommet actif ' +ident); 
+      if(type == "edgeVisite"){
+        if(ident.match(noeudActif+'-') != null) cl.createNotification("Default",'Visite du sommet ' +ident.replace(noeudActif+'-',''));
+        else cl.createNotification("Default",'Visite du sommet ' +ident.replace('-'+noeudActif,''));
+      }
+    
+      else if(type == "edgeRevisite"){
+        if(ident.match(noeudActif+'-') != null) cl.createNotification("Revisite",'Revisite du sommet ' +ident.replace(noeudActif+'-',''));
+        else cl.createNotification("Revisite",'Revisite du sommet ' +ident.replace('-'+noeudActif,''));
+      }
+      G.$('#'+ident).addClass(type);
+       myScroll.refresh();
+      },3000*i,result[i].id,result[i].type,this.G,this,noeudActif,i);
+      console.log(result);
+    }
+  }
 
 //Tableau associatif de coloration 'color' type de couleur int color[id].couleur //
 Graphe.prototype.colorCss = function (color) {
@@ -403,6 +423,15 @@ Graphe.prototype.colorCss = function (color) {
   //MAJ  css couleur node//
   for(i=0; i < this.G.nodes().length ;i++)    this.G.nodes()[i].css("background-color", myColor[color[this.G.nodes()[i].data().id]]); 
 
+}
+
+
+
+Graphe.prototype.createNotification = function(type,t,a){
+  var contentNotif ;
+  (a != undefined) ? contentNotif= '<li><div class="notifications"><div class="notif notif'+type+'"><div class="head">'+t+'</div><div class="text">'+a+'</div></div></div></li>' :  contentNotif = '<li><div class="notifications"><div class="notif notif'+type+'"><div class="head">'+t+'</div><div class="text"></div></div></div></li>'
+
+  $("#log-panel>#wrapper>#scroller> ul").prepend(contentNotif);
 }
 ///////////////////////////////////////////////////////////////
                   /*ALGO*/
@@ -425,7 +454,7 @@ Graphe.prototype.bfs = function (s) {
 
   f.push(s);
   v[s]=1;
-  retour.push({id:String(s),type:'nodeVisite'}); //Premier Sommet
+//retour.push({id:String(s),type:'nodeVisite'}); //Premier Sommet
 
 
   while(f.length>0){

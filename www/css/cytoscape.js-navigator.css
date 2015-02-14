@@ -227,9 +227,7 @@ html,body {
 	padding: 10px;
 	width: 100%;
 	
-	
-	background: #000;
-	
+	background-color: #1c1c1c;
 	-webkit-box-shadow: rgba(0,0,0,0.35) 0px 3px 6px, inset rgba(255,255,255,0.15) 0px 1px 0px, inset rgba(255,255,255,0.25) 0px 0px 1px;
 	-moz-box-shadow: rgba(0,0,0,0.35) 0px 3px 6px, inset rgba(255,255,255,0.15) 0px 1px 0px, inset rgba(255,255,255,0.25) 0px 0px 1px;
 	box-shadow: rgba(0,0,0,0.35) 0px 3px 6px, inset rgba(255,255,255,0.15) 0px 1px 0px, inset rgba(255,255,255,0.25) 0px 0px 1px;
@@ -254,7 +252,6 @@ html,body {
 	-o-animation: flip 1s 1 linear;
 	animation: flip 1s 1 linear;
 	
-	opacity: 0.9;
 }
 .notif .shine {
 	position: absolute;
