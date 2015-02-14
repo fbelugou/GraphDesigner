@@ -4,22 +4,30 @@ html,body {
   position: relative;
   height: 100%;
 
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    cursor: default;
   
 }
 
-.navigation-bar-content {
+ .element-divider{
+	border-left:1px solid #898989;
+}
+.metro .navigation-bar .navigation-bar-content, .metro .navbar .navigation-bar-content, .metro .navigation-bar .navbar-content, .metro .navbar .navbar-content{
 	position: relative;z-index: 999;
 
-
+	background-color:#040404; 
 	overflow: hidden;
-	background-color: #000;
-	background: #000;
-	border: 1px solid #000;
-	
+	border-bottom: 3px solid #000;
+	/*
 	-webkit-box-shadow: rgba(0,0,0,0.35) 0px 3px 6px, inset rgba(255,255,255,0.15) 0px 1px 0px, inset rgba(255,255,255,0.25) 0px 0px 1px;
 	-moz-box-shadow: rgba(0,0,0,0.35) 0px 3px 6px, inset rgba(255,255,255,0.15) 0px 1px 0px, inset rgba(255,255,255,0.25) 0px 0px 1px;
 	box-shadow: rgba(0,0,0,0.35) 0px 3px 6px, inset rgba(255,255,255,0.15) 0px 1px 0px, inset rgba(255,255,255,0.25) 0px 0px 1px;
-	
+	*/
 	-webkit-transform-style: preserve-3d;
 	-khtml-transform-style: preserve-3d;
 	-moz-transform-style: preserve-3d;
@@ -34,11 +42,7 @@ html,body {
 	-o-backface-visibility: hidden;
 	backface-visibility: hidden;
 	
-	-webkit-animation: flip 1s 1 linear;
-	-khtml-animation: flip 1s 1 linear;
-	-moz-animation: flip 1s 1 linear;
-	-o-animation: flip 1s 1 linear;
-	animation: flip 1s 1 linear;
+	
 	
 	opacity: 0.9;
 	-webkit-transform-style: flat;
@@ -48,13 +52,7 @@ html,body {
 	-o-transform-style: flat;
 	transform-style: flat;
 
-	
-	-webkit-animation: shine-in 1s 1 ease-out;
-	-khtml-animation: shine-in 1s 1 ease-out;
-	-moz-animation: shine-in 1s 1 ease-out;
-	-ms-animation: shine-in 1s 1 ease-out;
-	-o-animation: shine-in 1s 1 ease-out;
-	animation: shine-in 1s 1 ease-out;
+	/*
 	
 	background: -moz-linear-gradient(top, hsla(0,0%,100%,0.25) 0%, hsla(0,0%,100%,0) 100%);
 	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,hsla(0,0%,100%,0.2)), color-stop(100%,hsla(0,0%,100%,0)));
@@ -62,17 +60,43 @@ html,body {
 	background: -o-linear-gradient(top, hsla(0,0%,100%,0.25) 0%,hsla(0,0%,100%,0) 100%);
 	background: -ms-linear-gradient(top, hsla(0,0%,100%,0.25) 0%,hsla(0,0%,100%,0) 100%);
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#42ffffff', endColorstr='#00ffffff',GradientType=0 );
-	background: linear-gradient(to bottom, hsla(0,0%,100%,0.25) 0%,hsla(0,0%,100%,0) 100%);
+	background: linear-gradient(to bottom, hsla(0,0%,100%,0.25) 0%,hsla(0,0%,100%,0) 100%);*/
 }
+.metro .accordion>.accordion-frame{
+	border:none;
+}
+.metro .listview .list{
+	border:none;
+	border-bottom: 1px solid  #898989;
+}
+.metro .listview .list:last-child{
+	border:none;
+	border-bottom: none;
+}
+.metro .accordion.with-marker .heading:before{
+	border-bottom: 7px solid  #898989;
+}
+.metro .accordion>.accordion-frame>.heading{
+	background-color: #121212;
 
+}
+.metro .accordion>.accordion-frame{
+	margin:0;
+	border-bottom: 1px solid #898989;
+}
+.metro .accordion>.accordion-frame:last-child{
+	margin:0;
+	border-bottom: none;
+}
 .panel-right {
 	position: fixed;
 	right: 0;
 	width:30%;
 	height: calc(100% - 45px);
-	background: url(../images/textureMenu.jpg);
+	background: #2e2e2e;
     background-size: 100% 100%;
     background-repeat: no-repeat;
+    border-left: 1px solid #898989;
 
 }
 .panel-left{
@@ -81,21 +105,21 @@ html,body {
 	width:15%;
 	height: calc(100% - 45px);
 	background: rgba(200,200,200,1);
-	border-right: 1px solid #ddd;
+	border-right: 1px solid #898989;
 	overflow: hidden;
-	background: url(../images/textureMenu.jpg);
+	background: #2e2e2e;
     background-size: 100% 100%;
     background-repeat: no-repeat;
 }
 #cy {
 	position: relative;
 	width: 55%;
-	height: calc( 95% - 45px);
+	height: 100%;
 	right:0;
 	left:15%;
 	top:0;
 	bottom: 5%;
-	  background: #000;
+	  background: #1c1c1c;
 }
 #footer{
 	width: 100%;
@@ -188,7 +212,7 @@ html,body {
 
 .notifications {
 	position: relative;
-	
+	top: -1px;
 	width: 100%;
 	-webkit-perspective: 2000;
 	-khtml-perspective: 2000;
@@ -196,6 +220,7 @@ html,body {
 	-ms-perspective: 2000;
 	-o-perspective: 2000;
 	perspective: 2000;
+
 }
 
 .notif {
@@ -204,7 +229,6 @@ html,body {
 	
 	
 	background: #000;
-	border: 1px solid #000;
 	
 	-webkit-box-shadow: rgba(0,0,0,0.35) 0px 3px 6px, inset rgba(255,255,255,0.15) 0px 1px 0px, inset rgba(255,255,255,0.25) 0px 0px 1px;
 	-moz-box-shadow: rgba(0,0,0,0.35) 0px 3px 6px, inset rgba(255,255,255,0.15) 0px 1px 0px, inset rgba(255,255,255,0.25) 0px 0px 1px;
@@ -280,7 +304,7 @@ html,body {
 
 .notif .head {
 	padding-bottom: 4px;
-	color: #f5f5f5;
+	color: #fafafa;
 }
 
 .notif .text {
@@ -295,15 +319,15 @@ html,body {
 }
 .notifRevisite{
 	background-color: #a1dd1b;
-	border-color:  #a1dd1b;
 }
 .notifDefault{
 	background-color: #1ba1e2;
-	border-color:  #1ba1e2;
 }
 .notifBar{
-	background-color: #888;
-	border-color:  #FFF;
+	background-color: #141414;
+	border:none;
+	border-bottom: #898989;
+
 }
 
 @-webkit-keyframes flip {
@@ -438,8 +462,8 @@ html,body {
 #scroller li {
 	
 	opacity: 1;
-	border-bottom: 1px solid #ccc;
-	border-top: 1px solid #fff;
+	border-bottom: 1px solid #898989;
+	border-top: 1px solid #898989;
 	font-size: 12px;
 }
 
