@@ -405,10 +405,12 @@ Graphe.prototype.affiche = function(result) {
         else cl.createNotification("Revisite",'Revisite du sommet ' +ident.replace('-'+noeudActif,''));
       }
       G.$('#'+ident).addClass(type);
-       myScroll.refresh();
+      setTimeout(function(s){ s.refresh(); },1000,myScroll);
+
       },3000*i,result[i].id,result[i].type,this.G,this,noeudActif,i);
       console.log(result);
     }
+
   }
 
 //Tableau associatif de coloration 'color' type de couleur int color[id].couleur //
@@ -429,9 +431,11 @@ Graphe.prototype.colorCss = function (color) {
 
 Graphe.prototype.createNotification = function(type,t,a){
   var contentNotif ;
-  (a != undefined) ? contentNotif= '<li><div class="notifications"><div class="notif notif'+type+'"><div class="head">'+t+'</div><div class="text">'+a+'</div></div></div></li>' :  contentNotif = '<li><div class="notifications"><div class="notif notif'+type+'"><div class="head">'+t+'</div><div class="text"></div></div></div></li>'
+  (a != undefined) ? contentNotif= '<li><div class="notifications animated fadeInDown"><div class="notif notif'+type+'"><div class="head">'+t+'</div><div class="text">'+a+'</div></div></div></li>' :  contentNotif = '<li><div class="notifications animated fadeInDown "><div class="notif notif'+type+'"><div class="head">'+t+'</div><div class="text"></div></div></div></li>'
+  $(contentNotif).prependTo('#log-panel>#wrapper>#scroller> ul').hide().slideDown(1000);
+  ////$("#log-panel>#wrapper>#scroller> ul").prepend(contentNotif).slideDown("slow");
 
-  $("#log-panel>#wrapper>#scroller> ul").prepend(contentNotif);
+
 }
 ///////////////////////////////////////////////////////////////
                   /*ALGO*/
@@ -454,7 +458,6 @@ Graphe.prototype.bfs = function (s) {
 
   f.push(s);
   v[s]=1;
-//retour.push({id:String(s),type:'nodeVisite'}); //Premier Sommet
 
 
   while(f.length>0){

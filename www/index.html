@@ -6,6 +6,7 @@
         <meta http-equiv="Content-type" content="text/html; charset=utf-8">
         
         <!-- CSS -->
+        <link rel="stylesheet" href="css/animate.css">
         <link rel="stylesheet" href="css/metro-bootstrap.min.css">
         <link rel="stylesheet" href="css/iconFont.min.css">
         <link href="css/cytoscape.js-navigator.css" rel="stylesheet" type="text/css" />
@@ -41,7 +42,7 @@
 
     </head>
        
-    <body onload="loaded()"> 
+    <body onload="loaded()" ondragstart="return false;" ondrop="return false;"> 
         <div class="navigation-bar" style="background-color: #040404">
             <div class="navigation-bar-content">
                 <div class="tablet-portrait">
@@ -67,7 +68,7 @@
         <div class="panel-right">
             <div id ="menu-algo" class="accordion with-marker place-left" data-role="accordion" data-closeany="false">
                  <div class="accordion-frame">
-                    <a class="heading  fg-white collapsed" href="#"><i class="icon-rocket"></i> Parcours </a>
+                    <a class="heading  fg-white collapsed" href="#"><img class="icon-" src="images/parcoursW.png" width="20"></img> Parcours </a>
                     <div class="content" style="display: none;">
                         <div id ="list-algo" class="listview small">
                                     <a href="#" class="list" style = "width:100%">
@@ -93,7 +94,7 @@
                     </div>
                 </div>
                 <div class="accordion-frame">
-                    <a class="heading  fg-white collapsed" href="#"><i class="icon-rocket"></i> Arbre </a>
+                    <a class="heading  fg-white collapsed" href="#"><img class="icon-" src="images/arbreW.png" width="20"></img> Arbre </a>
                     <div class="content" style="display: none;">
                            <div id ="list-algo" class="listview small">
                                     <a href="#" class="list" style = "width:100%">
@@ -119,7 +120,7 @@
                     </div>
                 </div>
                 <div class="accordion-frame">
-                    <a class="heading  fg-white collapsed" href="#"><i class="icon-cog"></i> Chemins</a>
+                    <a class="heading  fg-white collapsed" href="#"><img class="icon-" src="images/courtCheminW.png" width="20"></img> Chemins</a>
                     <div class="content" style="display: none;">
                        <div id ="list-algo" class="listview small">
                                     <a href="#" class="list" style = "width:100%">
@@ -145,7 +146,7 @@
                         </div>
                 </div>
                 <div class="accordion-frame">
-                    <a class="heading fg-white collapsed" href="#"><i class="icon-cart"></i> Coloration</a>
+                    <a class="heading fg-white collapsed" href="#"><img class="icon-" src="images/painterW.png" width="20"></img> Coloration</a>
                     <div class="content" style="display: none;">
                            <div id ="list-algo" class="listview small">
                                     <a href="#" class="list" style = "width:100%">
@@ -177,7 +178,7 @@
            <div id="log-panel">
                 <div class="notifications">
                     <div class="notif notifBar">             
-                        <div class="head">Notifications</div>
+                        <div class="head">Notifications <img class="icon-" src="images/trash.png" width="20" style="float:right"></img></div>
                         <div class="text"></div>
                     </div>
                 </div>
