@@ -23,11 +23,7 @@ html,body {
 	background-color:#040404; 
 	overflow: hidden;
 	border-bottom: 3px solid #000;
-	/*
-	-webkit-box-shadow: rgba(0,0,0,0.35) 0px 3px 6px, inset rgba(255,255,255,0.15) 0px 1px 0px, inset rgba(255,255,255,0.25) 0px 0px 1px;
-	-moz-box-shadow: rgba(0,0,0,0.35) 0px 3px 6px, inset rgba(255,255,255,0.15) 0px 1px 0px, inset rgba(255,255,255,0.25) 0px 0px 1px;
-	box-shadow: rgba(0,0,0,0.35) 0px 3px 6px, inset rgba(255,255,255,0.15) 0px 1px 0px, inset rgba(255,255,255,0.25) 0px 0px 1px;
-	*/
+
 	-webkit-transform-style: preserve-3d;
 	-khtml-transform-style: preserve-3d;
 	-moz-transform-style: preserve-3d;
@@ -52,16 +48,8 @@ html,body {
 	-o-transform-style: flat;
 	transform-style: flat;
 
-	/*
-	
-	background: -moz-linear-gradient(top, hsla(0,0%,100%,0.25) 0%, hsla(0,0%,100%,0) 100%);
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,hsla(0,0%,100%,0.2)), color-stop(100%,hsla(0,0%,100%,0)));
-	background: -webkit-linear-gradient(top, hsla(0,0%,100%,0.25) 0%,hsla(0,0%,100%,0) 100%);
-	background: -o-linear-gradient(top, hsla(0,0%,100%,0.25) 0%,hsla(0,0%,100%,0) 100%);
-	background: -ms-linear-gradient(top, hsla(0,0%,100%,0.25) 0%,hsla(0,0%,100%,0) 100%);
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#42ffffff', endColorstr='#00ffffff',GradientType=0 );
-	background: linear-gradient(to bottom, hsla(0,0%,100%,0.25) 0%,hsla(0,0%,100%,0) 100%);*/
 }
+
 .metro .accordion>.accordion-frame{
 	border:none;
 }
@@ -192,11 +180,12 @@ html,body {
 	top: 0;
 	left: 0;
 	cursor: move;
-	background: #1ba1e2;
+	background: #666;
 	-moz-opacity: 0.50;
 	opacity: 0.50;
 	-ms-filter:"progid:DXImageTransform.Microsoft.Alpha"(Opacity=50);
 	z-index: 102;
+	border: 2px solid #898989;
 }
 
 .cytoscape-navigatorOverlay{
@@ -306,10 +295,10 @@ html,body {
 	animation: text-in 1s 1 ease-out;
 }
 .notifRevisite{
-	background-color: #a1dd1b;
+	background-color: #488b4d;
 }
 .notifDefault{
-	background-color: #1ba1e2;
+	background-color: #4e859c;
 }
 .notifBar{
 	background-color: #141414;
@@ -378,4 +367,17 @@ html,body {
 }
 .list{
 	width: 100%;
+}
+#algoDialog{
+	position: absolute;
+	top:48px;
+	left:15%;
+	width:55%;
+
+}
+.hide{
+	display: none;
+}
+.show{
+	display: block;
 }

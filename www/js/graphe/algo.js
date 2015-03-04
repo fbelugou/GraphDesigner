@@ -97,7 +97,7 @@ var style1 = cytoscape.stylesheet()
 var style2 = cytoscape.stylesheet()
     .selector(':selected')
       .css({
-        'border-color':'red',
+        'border-color':'#9a4d4d',
         'border-width':5,
       })
     .selector('node')
@@ -128,10 +128,10 @@ var style2 = cytoscape.stylesheet()
       })
     .selector('.edgeRevisite')
       .css({
-        'text-outline-color': '#00FF00',
-        'background-color': '#00FF00',
-        'line-color': '#00FF00',
-        'target-arrow-color': '#00FF00',
+        'text-outline-color': '#488b4d',
+        'background-color': '#488b4d',
+        'line-color': '#488b4d',
+        'target-arrow-color': '#488b4d',
         'transition-property': 'background-color, line-color, target-arrow-color',
         'transition-duration': '0.5s',
         'line-style':'dashed',
@@ -140,10 +140,10 @@ var style2 = cytoscape.stylesheet()
      .selector('.edgeVisite')
       .css({
 
-        'text-outline-color': '#61bffc',
-        'background-color': '#61bffc',
-        'line-color': '#61bffc',
-        'target-arrow-color': '#61bffc',
+        'text-outline-color': '#4e859c',
+        'background-color': '#4e859c',
+        'line-color': '#4e859c',
+        'target-arrow-color': '#4e859c',
         'transition-property': 'background-color, line-color, target-arrow-color',
         'transition-duration': '0.5s',
         'curve-style':'ellipse'
@@ -151,10 +151,10 @@ var style2 = cytoscape.stylesheet()
        .selector('.nodeVisite')
       .css({
 
-        'text-outline-color': '#61bffc',
-        'background-color': '#61bffc',
-        'line-color': '#61bffc',
-        'target-arrow-color': '#61bffc',
+        'text-outline-color': '#4e859c',
+        'background-color': '#4e859c',
+        'line-color': '#4e859c',
+        'target-arrow-color': '#4e859c',
         'transition-property': 'background-color, line-color, target-arrow-color',
         'transition-duration': '0.5s'
       })
@@ -162,16 +162,16 @@ var style2 = cytoscape.stylesheet()
       .css({
 
 
-        'border-color': 'red',
+        'border-color': '#9a4d4d',
         'border-width':5,
-        'target-arrow-color': '#61bffc',
+        'target-arrow-color': '#4e859c',
         'transition-property': 'background-color, line-color, target-arrow-color',
         'transition-duration': '0.5s'
       })
       .selector('.label')
       .css({
-        'text-outline-color': '#61bffc',
-        'background-color': '#61bffc',
+        'text-outline-color': '#4e859c',
+        'background-color': '#4e859c',
         'line-color': 'rgba(255,255,255,0)',
         'target-arrow-color': 'rgba(255,255,255,0)',
         'transition-property': 'background-color, line-color, target-arrow-color',
@@ -433,9 +433,6 @@ Graphe.prototype.createNotification = function(type,t,a){
   var contentNotif ;
   (a != undefined) ? contentNotif= '<li><div class="notifications animated fadeInDown"><div class="notif notif'+type+'"><div class="head">'+t+'</div><div class="text">'+a+'</div></div></div></li>' :  contentNotif = '<li><div class="notifications animated fadeInDown "><div class="notif notif'+type+'"><div class="head">'+t+'</div><div class="text"></div></div></div></li>'
   $(contentNotif).prependTo('#log-panel>#wrapper>#scroller> ul').hide().slideDown(1000);
-  ////$("#log-panel>#wrapper>#scroller> ul").prepend(contentNotif).slideDown("slow");
-
-
 }
 ///////////////////////////////////////////////////////////////
                   /*ALGO*/
