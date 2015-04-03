@@ -7,12 +7,11 @@
 ///////////////////////////////////////////////////////////////
 
 
-//Style pour graphe oriente 
+//Style pour graphe oriente
 var style1 = cytoscape.stylesheet()
     .selector(':selected')
       .css({
-        'border-color':'red',
-        'border-width':5,
+        'border-width':20
       })
     .selector('node')
       .css({
@@ -23,7 +22,10 @@ var style1 = cytoscape.stylesheet()
         'width': 100,
         'height':100,
         'font-size':50,
-        'font-weight' : 'bold'
+        'font-weight' : 'bold',
+        'transition-property': 'border-width',
+        'transition-duration': '0.5s',
+        'border-color': '#888'
       })
     .selector('edge')
       .css({
@@ -73,33 +75,39 @@ var style1 = cytoscape.stylesheet()
         'transition-property': 'background-color, line-color, target-arrow-color',
         'transition-duration': '0.5s'
       })
-       .selector('.nodeVisite:selected')
-      .css({
-
-
-        'border-color': 'red',
-        'border-width':5,
-        'target-arrow-color': '#61bffc',
-        'transition-property': 'background-color, line-color, target-arrow-color',
-        'transition-duration': '0.5s'
-      })
+      .selector('.nodeVisite:selected')
+     .css({
+       'border-color': 'red',
+       'border-width':5,
+       'target-arrow-color': '#4e859c',
+       'transition-property': 'background-color, line-color, target-arrow-color',
+       'transition-duration': '0.5s'
+     })
       .selector('.label')
       .css({
         'text-outline-color': '#61bffc',
         'background-color': '#61bffc',
-        'line-color': 'rgba(255,255,255,0)',
-        'target-arrow-color': 'rgba(255,255,255,0)',
+        'line-color': '#1c1c1c',
+        'target-arrow-color': '#1c1c1c',
         'transition-property': 'background-color, line-color, target-arrow-color',
-        'transition-duration': '0.5s'
+        'transition-duration': '0.5s',
+        'curve-style': 'ellipse'
+      })
+      .selector('#illustration')
+      .css({
+        'line-color': 'red',
+        'target-arrow-color': 'red',
+        'target-arrow-shape':'triangle',
+        'curve-style': 'ellipse'
       });
 
-//Style pour graphe non oriente// 
+//Style pour graphe non oriente//
 var style2 = cytoscape.stylesheet()
-    .selector(':selected')
-      .css({
-        'border-color':'#9a4d4d',
-        'border-width':5,
-      })
+
+    .selector('.nodeSelected')
+    .css({
+      'border-width':20
+    })
     .selector('node')
       .css({
         'content': 'data(id)',
@@ -109,7 +117,10 @@ var style2 = cytoscape.stylesheet()
         'width': 100,
         'height':100,
         'font-size':50,
-        'font-weight' : 'bold'
+        'font-weight' : 'bold',
+        'transition-property': 'border-width',
+        'transition-duration': '0.5s',
+        'border-color': '#888'
       })
     .selector('edge')
       .css({
@@ -155,14 +166,12 @@ var style2 = cytoscape.stylesheet()
         'background-color': '#4e859c',
         'line-color': '#4e859c',
         'target-arrow-color': '#4e859c',
-        'transition-property': 'background-color, line-color, target-arrow-color',
+        'transition-property': 'background-color, line-color, target-arrow-color, width',
         'transition-duration': '0.5s'
       })
        .selector('.nodeVisite:selected')
       .css({
-
-
-        'border-color': '#9a4d4d',
+        'border-color': 'red',
         'border-width':5,
         'target-arrow-color': '#4e859c',
         'transition-property': 'background-color, line-color, target-arrow-color',
@@ -170,12 +179,21 @@ var style2 = cytoscape.stylesheet()
       })
       .selector('.label')
       .css({
-        'text-outline-color': '#4e859c',
-        'background-color': '#4e859c',
-        'line-color': 'rgba(255,255,255,0)',
-        'target-arrow-color': 'rgba(255,255,255,0)',
+        'text-outline-color': '#61bffc',
+        'background-color': '#61bffc',
+        'line-color': '#1c1c1c',
+        'target-arrow-color': '#1c1c1c',
         'transition-property': 'background-color, line-color, target-arrow-color',
-        'transition-duration': '0.5s'
+        'transition-duration': '0.5s',
+        'curve-style': 'ellipse'
+      })
+      .selector('#illustration')
+      .css({
+        'line-color': 'red',
+        'target-arrow-color': 'red',
+        'target-arrow-shape':'triangle',
+        'curve-style': 'unbundled-bezier',
+        'control-point-distance': '100px'
       });
 
 ///////////////////////////////////////////////////////////////
@@ -263,6 +281,7 @@ var layoutcose={
 
 
 function Graphe  (Tadjacence,Boriente){
+
         this.adjacence=[];
         this.oriente=Boriente;
         (Tadjacence[0].length == 3) ? this.value=true : this.value= false
@@ -320,7 +339,7 @@ function Graphe  (Tadjacence,Boriente){
             if(this.G.nodes('[id=\''+A0+'\']').length == 0) {
                 this.G.add( { group:"nodes", data: {id: A0 ,degreE:0, degreS: 0, degre:0} } );
                 this.adjacence[A0]=[];
-               
+
             }
             if(this.G.nodes('[id=\''+A1+'\']').length == 0) {
                 this.G.add( { group:"nodes", data: {id: A1,degreE:0, degreS: 0,degre:0} } );
@@ -345,7 +364,7 @@ function Graphe  (Tadjacence,Boriente){
                 this.adjacence[A0].push( {target:A1, weight:A2} );
                 this.G.getElementById(A0).data().degre +=1;
                 this.G.getElementById(A1).data().degre +=1;
-              } 
+              }
 
             }
 
@@ -354,7 +373,7 @@ function Graphe  (Tadjacence,Boriente){
               if(this.G.edges('[id=\''+A0+'-'+A1+'\']').length == 0 && Boriente){
 
                  this.G.add( { group:"edges", data: {id: A0+'-'+A1, source: A0, target:A1} } );
-                 this.adjacence[A0].push( {target:A1} );       
+                 this.adjacence[A0].push( {target:A1} );
                  this.G.getElementById(A0).data().degreS +=1;
                  this.G.getElementById(A1).data().degreE +=1;
               }
@@ -366,7 +385,7 @@ function Graphe  (Tadjacence,Boriente){
                 this.adjacence[A1].push( {target:A0} );
                 this.G.getElementById(A0).data().degre +=1;
                 this.G.getElementById(A1).data().degre +=1;
-              } 
+              }
             }
           }
         }
@@ -385,21 +404,21 @@ function Graphe  (Tadjacence,Boriente){
 Graphe.prototype.affiche = function(result) {
 
   var i;
-  this.createNotification("",'Sommet actif ' +result[0].id); 
-  this.createNotification("Default",'Visite du sommet ' +result[0].id);    
+  this.createNotification("",'Sommet actif ' +result[0].id);
+  this.createNotification("Default",'Visite du sommet ' +result[0].id);
 
   for(i = 0; i < result.length; i++ ){
 
       var noeudActif;
-      if(result[i].type == "nodeVisite" )  noeudActif = result[i].id; 
+      if(result[i].type == "nodeVisite" )  noeudActif = result[i].id;
 
       setTimeout( function(ident,type,G,cl,noeudActif,i){
-      if(type == "nodeVisite" && i != 0) cl.createNotification("",'Sommet actif ' +ident); 
+      if(type == "nodeVisite" && i != 0) cl.createNotification("",'Sommet actif ' +ident);
       if(type == "edgeVisite"){
         if(ident.match(noeudActif+'-') != null) cl.createNotification("Default",'Visite du sommet ' +ident.replace(noeudActif+'-',''));
         else cl.createNotification("Default",'Visite du sommet ' +ident.replace('-'+noeudActif,''));
       }
-    
+
       else if(type == "edgeRevisite"){
         if(ident.match(noeudActif+'-') != null) cl.createNotification("Revisite",'Revisite du sommet ' +ident.replace(noeudActif+'-',''));
         else cl.createNotification("Revisite",'Revisite du sommet ' +ident.replace('-'+noeudActif,''));
@@ -413,6 +432,68 @@ Graphe.prototype.affiche = function(result) {
 
   }
 
+Graphe.prototype.afficheDijkstra = function(result) {
+
+  for (var i = 0; i < result.length; i++) {
+
+    setTimeout(
+
+      function(ident, type, G, source, str) {
+
+        if (type == 1) G.$("#" + ident).addClass("nodeVisite");
+        else if (type == 2) {
+
+          if (G.$("#illustration")) G.$("#illustration").remove();
+          G.add({ group:"edges", data: {id: 'illustration', source: source, target: ident}});
+
+        }
+        else if (type == 3) {
+
+          if (G.$("#label" + ident)) G.$("#label" + ident).remove();
+          G.add({ group:"edges", data: {id: 'label' + ident, source: ident, target: ident, weight: str}});
+          G.$("#label" + ident).addClass("label");
+
+        }
+
+      },
+      2000 * i,
+      result[i][0],
+      result[i].length,
+      this.G,
+      result[i][1],
+      result[i][2]
+
+    );
+
+  }
+  this.createNotification("",'Sommet actif ' +result[0].id);
+  this.createNotification("Default",'Visite du sommet ' +result[0].id);
+
+  for(i = 0; i < result.length; i++ ){
+
+      var noeudActif;
+      if(result[i].type == "nodeVisite" )  noeudActif = result[i].id;
+
+      setTimeout( function(ident,type,G,cl,noeudActif,i){
+      if(type == "nodeVisite" && i != 0) cl.createNotification("",'Sommet actif ' +ident);
+      if(type == "edgeVisite"){
+        if(ident.match(noeudActif+'-') != null) cl.createNotification("Default",'Visite du sommet ' +ident.replace(noeudActif+'-',''));
+        else cl.createNotification("Default",'Visite du sommet ' +ident.replace('-'+noeudActif,''));
+      }
+
+      else if(type == "edgeRevisite"){
+        if(ident.match(noeudActif+'-') != null) cl.createNotification("Revisite",'Revisite du sommet ' +ident.replace(noeudActif+'-',''));
+        else cl.createNotification("Revisite",'Revisite du sommet ' +ident.replace('-'+noeudActif,''));
+      }
+      G.$('#'+ident).addClass(type);
+      setTimeout(function(s){ s.refresh(); },1000,myScroll);
+
+      },3000*i,result[i].id,result[i].type,this.G,this,noeudActif,i);
+      console.log(result);
+    }
+
+}
+
 //Tableau associatif de coloration 'color' type de couleur int color[id].couleur //
 Graphe.prototype.colorCss = function (color) {
 
@@ -423,7 +504,7 @@ Graphe.prototype.colorCss = function (color) {
 
   var i;
   //MAJ  css couleur node//
-  for(i=0; i < this.G.nodes().length ;i++)    this.G.nodes()[i].css("background-color", myColor[color[this.G.nodes()[i].data().id]]); 
+  for(i=0; i < this.G.nodes().length ;i++)    this.G.nodes()[i].css("background-color", myColor[color[this.G.nodes()[i].data().id]]);
 
 }
 
@@ -475,16 +556,16 @@ Graphe.prototype.bfs = function (s) {
           f.push(y);
           if(!this.oriente){
             (this.G.$('#'+y+'-'+s).length > 0) ? retour.push({id:y+'-'+s, type:'edgeVisite'}) : retour.push({id:s+'-'+y, type:'edgeVisite'});
-          }            
-          else retour.push({id:s+'-'+y, type:'edgeVisite'}); 
+          }
+          else retour.push({id:s+'-'+y, type:'edgeVisite'});
 
       }
       else if (v[y] != 0 && p[s]!=y){
 
          if(!this.oriente){
             (this.G.$('#'+y+'-'+s).length > 0) ? retour.push({id:y+'-'+s, type:'edgeRevisite'}) : retour.push({id:s+'-'+y, type:'edgeRevisite'});
-          }            
-          else retour.push({id:s+'-'+y, type:'edgeRevisite'}); 
+          }
+          else retour.push({id:s+'-'+y, type:'edgeRevisite'});
 
       }
     }
@@ -492,14 +573,11 @@ Graphe.prototype.bfs = function (s) {
    return retour;
 }
 
-
-
-
 Graphe.prototype.dfs = function(s,v,r,p) {
-    
+
     (v == undefined) ? v= [] : v = v;
 
-    
+
 
     s= String(s);
     (r == undefined) ? r = [] : r = r;
@@ -515,19 +593,19 @@ Graphe.prototype.dfs = function(s,v,r,p) {
           console.log(y);
           if(!this.oriente){
             (this.G.$('#'+y+'-'+s).length > 0) ? r.push({id:y+'-'+s, type:'edgeVisite'}) : r.push({id:s+'-'+y, type:'edgeVisite'});
-          }            
-          else r.push({id:s+'-'+y, type:'edgeVisite'});  
+          }
+          else r.push({id:s+'-'+y, type:'edgeVisite'});
           p[y]=s;
           this.dfs(y,v,r,p);
-        }  
+        }
         else{
           if(v[y] == 1 && p[s] != y){
             console.log(y);
             if(!this.oriente){
               (this.G.$('#'+y+'-'+s).length > 0) ? r.push({id:y+'-'+s, type:'edgeRevisite'}) : r.push({id:s+'-'+y, type:'edgeRevisite'});
-            }            
-            else r.push({id:s+'-'+y, type:'edgeRevisite'});  
-          }   
+            }
+            else r.push({id:s+'-'+y, type:'edgeRevisite'});
+          }
         }
     }
     return r;
@@ -542,13 +620,79 @@ Graphe.prototype.dfs = function(s,v,r,p) {
 ///////////////////////////////////////////////////////////////
 function trieAretePoid(){
     return this.adjacence.sort(function(a,b){
-      return(a[2] < b[2]) ?  1:-1;      
-    });     
+      return(a[2] < b[2]) ?  1:-1;
+    });
 };
 Graphe.prototype.kruskal = function(){
   /* body... */
 };
 
+///////////////////////////////////////////////////////////////
+                  /*ALGO*/
+
+              //CHEMINS//
+
+///////////////////////////////////////////////////////////////
+
+Graphe.prototype.Dijkstra = function(n) {
+
+  // Retour
+  var retour = new Array();
+
+  // Initialisation du sommet de depart
+  if (n == undefined) n = this.G.nodes()[0];
+  else n = this.G.nodes()[n - 1];
+
+  var x = n.data().id;
+
+  // Initialisation du nombre de sommets
+  var nbSommet = this.G.nodes().length;
+
+  // Initialisation de la file d'attente
+  var file = new Array();
+  file.push(x);
+
+  // Initiatilisation du tableau des distances
+  var dist = new Array(nbSommet);
+  for (var i = 0; i < dist.length; i++) {
+
+    if (String(i + 1) == x) dist[i] = 0;
+    else dist[i] = undefined; // Pour l'infini
+
+  }
+  while (file.length > 0) {
+
+    x = file.shift(); // Tete
+    retour.push([String(x)]);
+
+    for (var i = 0; i < this.adjacence[x].length; i++) {
+
+      var y = this.adjacence[x][i].target;
+
+      retour.push([String(y), String(x)]);
+
+      var poids = dist[y - 1];
+      var poidsEnCours = dist[x - 1] + this.adjacence[x][i].weight;
+
+      if (poids == undefined || poids > poidsEnCours) {
+
+        if (poids > poidsEnCours)
+        retour.push([String(y), String(x), String(poids) + " > " + String(dist[x - 1]) + " + " + String(this.adjacence[x][i].weight)]);
+
+        dist[y - 1] = poidsEnCours;
+        file.push(y);
+
+        retour.push([String(y), String(x), String(poidsEnCours)]);
+
+      }
+
+    }
+
+  }
+
+  return retour;
+
+}
 
 ///////////////////////////////////////////////////////////////
                   /*ALGO*/
@@ -705,19 +849,18 @@ Graphe.prototype.colorBelugou = function (s) {
           maxDifference = couleurPereDiff[this.G.nodes()[i].data().id];
           maxDegre = this.G.nodes()[i].data().degre;
           //console.log(couleurPere[this.G.nodes()[i].data().id].length+String(maxDegre) + String(maxDifference));
-      
+
         }
       }
     }
 
     var colorAssocie = 0;
     for(i = 0; i < couleurPere[idmax].length; i++) {if (couleurPere[idmax].indexOf(colorAssocie) > -1) colorAssocie++;}
-   // console.log(couleurPere);
     color[idmax] = colorAssocie;
     delete couleurPere[idmax];
 
     for(i = 0; i < this.adjacence[idmax].length; i++){
-      
+
         if(couleurPere[this.adjacence[idmax][i].target] != undefined){
               if(couleurPere[this.adjacence[idmax][i].target].indexOf(color[idmax]) == -1) {
                 couleurPereDiff[this.adjacence[idmax][i].target] += 1;
@@ -729,7 +872,7 @@ Graphe.prototype.colorBelugou = function (s) {
 
 
     v++;
-    
+
     t++;
 
   }while (v < this.G.nodes().length);
@@ -748,7 +891,7 @@ Graphe.prototype.colorBelugou = function (s) {
 
 /////////////////////////////////////////////////////////////////
 
-//var parcoursLareur 
+//var parcoursLareur
 Graphe.prototype.parcoursLargeur = function(x) {
 
   var result = this.bfs(x);
@@ -795,7 +938,7 @@ grapheAleatoire = function(n){
 
 
 //console.log(window['graphe'+0]);
-  /* 
+  /*
 var cpt=0;
 var monGraphe = new Graphe(window['graph'+cpt],false);
 var c = monGraphe.colorBelugou('1');
@@ -810,7 +953,7 @@ function testAlgo(){
    var monGraphe = new Graphe(window['graph'+cpt],false);
    var c = monGraphe.colorBelugou('1');
    monGraphe.colorCss(c);
-  
+
   var j;
   var max = 0;
   for(j=0 ; j< monGraphe.G.nodes().length; j++){
@@ -828,28 +971,25 @@ function testAlgo(){
 //var i = monGraphe.dfs('1');
 //monGraphe.affiche(i);
 
+$(document).mouseup(function () {
 
+  var test = monGraphe.G.nodes();
+  for (var i = 0; i < test.length; i++) {
 
+    if (test[i].selected()) test[i].addClass("nodeSelected");
+    else test[i].removeClass("nodeSelected");
 
-/////////////////////////
-/////  MINIMAP     //////
-/////////////////////////
-$('#cy').cyNavigator({
-          container: '.cytoscape-navigator',
-          viewLiveFramerate: 0,
-          thumbnailEventFramerate: 0,
-          thumbnailLiveFramerate: false,
-          dblClickDelay: 200
-})
+  }
 
-
+});
 
 //////////////////////////////
 /////     RESIZE       ///////
 //////////////////////////////
 window.onresize = function(){
-monGraphe.G.resize();
-monGraphe.G.fit();
 
+  monGraphe.G.resize();
+  monGraphe.G.fit();
+  
 }
 //});

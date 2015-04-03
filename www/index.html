@@ -4,7 +4,7 @@
         <meta charset="UTF-8">
         <title>Blank App Designer Project Template</title>
         <meta http-equiv="Content-type" content="text/html; charset=utf-8">
-        
+
         <!-- CSS -->
         <link rel="stylesheet" href="css/animate.css">
         <link rel="stylesheet" href="css/metro-bootstrap.min.css">
@@ -14,24 +14,30 @@
         <!-- SCRIPT -->
         <script src="js/lib/jquery-2.1.1.min.js"></script>
         <script src="js/jquery-ui.min.js"></script>
-        <script src="js/metro.min.js"></script>       
+        <script src="js/metro.min.js"></script>
         <script src="js/cytoscape.min.js"></script>
         <script src="js/lib/cytoscape.js-navigator.js"></script>
 	    <script src="js/lib/randomColor.js"></script>
         <script src="js/lib/iscroll.js"></script>
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0">
+
+  
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0">
 
     <script type="text/javascript">
-  
+
      var myScroll;
 
         function loaded () {
             myScroll = new IScroll('#wrapper', {
+
                 scrollbars: true,
                 mouseWheel: true,
                 interactiveScrollbars: true,
                 shrinkScrollbars: 'scale',
                 fadeScrollbars: true
+
             });
         }
 
@@ -49,38 +55,40 @@
 
 
     </head>
-       
-    <body onload="loaded()" ondragstart="return false;" ondrop="return false;"> 
+
+    <body onload="loaded()" ondragstart="return false;" ondrop="return false;">
+        <div id="blockMask" class="show" title="Algo"></div>
         <div class="navigation-bar dark" style="background-color: #040404">
             <div class="navigation-bar-content">
+
                 <div class="tablet-portrait">
-                <a href="#" class="element brand"><span class="icon-grid-view"></span>GraphViewer<sup>0.2</sup></a>
-                <span class="element-divider"></span>
-                <a class="pull-menu" href="#"></a>               
 
-                    <span class="element-divider"></span>
-                    <a class="element brand" href="#"><span class="icon-spin"></span></a>
-                     
-                    <a class="element brand" href="#"><span class="icon-printer"></span></a>
+                  <a id="btn-viewer" href="#" class="element brand"><span class="icon-grid-view"></span> Graphe Viewer <sup>0.2</sup></a>
+                  <span class="element-divider"></span>
+                  <a class="pull-menu" href="#"></a>
+                  <span class="element-divider"></span>
+                  <a class="element brand" href="#"><span class="icon-spin"></span></a>
+                  <a class="element brand" href="#"><span class="icon-printer"></span></a>
 
 
-                     <a href="/" class="element place-right"> <span>GrapheDesigner</span> </a>
-                     <span class="element-divider place-right"></span>   
-                    <span class="element-divider place-right"></span>   
-                      
+                  <a id="btn-designer" href="#" class="element place-right"><span></span> Graphe Designer <sup>0.0</sup></a>
+                  <span class="element-divider place-right"></span>
+                  <span class="element-divider place-right"></span>
+
                 </div>
             </div>
         </div>
-      
-        
+
+
         <div class="panel-right">
             <div id ="menu-algo" class="accordion with-marker place-left" data-role="accordion" data-closeany="false">
                  <div class="accordion-frame">
                     <a class="heading  fg-white collapsed" href="#"><img class="icon-" src="images/parcoursW.png" width="20"></img> Parcours </a>
                     <div class="content" style="display: none;">
                         <div id ="list-algo" class="listview small">
+
                                     <a href="#" class="list" style = "width:100%">
-                                        <div class="list-content">
+                                        <div class="list-content"  data="parcoursProfondeur_D">
                                             <img src="images/.jpg" class="span1 shadow " style="float:left">
                                             <div class="data">
                                                 <span class="list-title">Parcours Profondeur</span>
@@ -88,16 +96,16 @@
                                             </div>
                                         </div>
                                     </a>
-                                 
-                                 <a href="#" class="list" style = "width:100%">
-                                        <div class="list-content">
+
+                                     <a href="#" class="list" style = "width:100%">
+                                        <div class="list-content"  data="parcoursLargeur_D">
                                             <img src="images/.jpg" class="span1 shadow " style="float:left">
                                             <div class="data">
                                                 <span class="list-title">Parcours Largeur</span>
                                                 <div class="rating small no-margin" data-role="rating" data-stars="5"data-score="4"><ul style="margin-bottom: 0px;"><li></li><li></li><li></li><li></li><li></li></ul></div>
                                             </div>
                                         </div>
-                                    </a>                                   
+                                    </a>
                             </div>
                     </div>
                 </div>
@@ -106,7 +114,7 @@
                     <div class="content" style="display: none;">
                            <div id ="list-algo" class="listview small">
                                     <a href="#" class="list" style = "width:100%">
-                                        <div class="list-content">
+                                        <div class="list-content"  data="kruskal_D">
                                             <img src="images/kruskal.jpg" class="span1 shadow " style="float:left">
                                             <div class="data">
                                                 <span class="list-title">Kruskal</span>
@@ -114,16 +122,16 @@
                                             </div>
                                         </div>
                                     </a>
-                                 
+
                                  <a href="#" class="list" style = "width:100%">
-                                        <div class="list-content">
+                                        <div class="list-content"  data="prim_D">
                                             <img src="images/Robert-C-Prim.jpg" class="span1 shadow " style="float:left">
                                             <div class="data">
                                                 <span class="list-title">Prim</span>
                                                 <div class="rating small no-margin" data-role="rating" data-stars="5"data-score="4"><ul style="margin-bottom: 0px;"><li></li><li></li><li></li><li></li><li></li></ul></div>
                                             </div>
                                         </div>
-                                    </a>                                   
+                                    </a>
                             </div>
                     </div>
                 </div>
@@ -132,7 +140,7 @@
                     <div class="content" style="display: none;">
                        <div id ="list-algo" class="listview small">
                                     <a href="#" class="list" style = "width:100%">
-                                        <div class="list-content">
+                                        <div class="list-content"  data="circuitEulerien_D">
                                             <img src="images/euler.jpg" class="span1 shadow " style="float:left">
                                             <div class="data">
                                                 <span class="list-title">Circuit Eulerien</span>
@@ -140,18 +148,18 @@
                                             </div>
                                         </div>
                                     </a>
-                                 
+
                                  <a href="#" class="list" style = "width:100%">
-                                        <div class="list-content">
+                                        <div class="list-content"  data="cheminEulerien_D">
                                             <img src="images/euler.jpg" class="span1 shadow " style="float:left">
                                             <div class="data">
                                                 <span class="list-title">Chemin Eulerien</span>
                                                 <div class="rating small no-margin" data-role="rating" data-stars="5"data-score="4"><ul style="margin-bottom: 0px;"><li></li><li></li><li></li><li></li><li></li></ul></div>
                                             </div>
                                         </div>
-                                    </a> 
+                                    </a>
                                   <a href="#" class="list" style = "width:100%">
-                                        <div class="list-content">
+                                        <div class="list-content"  data="dijkstra_D">
                                             <img src="images/dijkstra.jpg" class="span1 shadow " style="float:left">
                                             <div class="data">
                                                 <span class="list-title">Dijkstra</span>
@@ -160,14 +168,14 @@
                                         </div>
                                     </a>
                                   <a href="#" class="list" style = "width:100%">
-                                        <div class="list-content">
+                                        <div class="list-content"  data="bellman_D">
                                             <img src="images/bellman.jpg" class="span1 shadow " style="float:left">
                                             <div class="data">
                                                 <span class="list-title">Bellman</span>
                                                 <div class="rating small no-margin" data-role="rating" data-stars="5"data-score="4"><ul style="margin-bottom: 0px;"><li></li><li></li><li></li><li></li><li></li></ul></div>
                                             </div>
                                         </div>
-                                    </a>                                  
+                                    </a>
                             </div>
                         </div>
                 </div>
@@ -176,7 +184,7 @@
                     <div class="content" style="display: none;">
                            <div id ="list-algo" class="listview small">
                                     <a href="#" class="list" style = "width:100%">
-                                        <div class="list-content">
+                                        <div class="list-content"  data="naif_D">
                                             <img src="images/.jpg" class="span1 shadow " style="float:left">
                                             <div class="data">
                                                 <span class="list-title">Naif</span>
@@ -184,16 +192,16 @@
                                             </div>
                                         </div>
                                     </a>
-                                 
+
                                  <a href="#" class="list" style = "width:100%">
-                                        <div class="list-content">
+                                        <div class="list-content"  data="glouton_D">
                                             <img src="images/.jpg" class="span1 shadow " style="float:left">
                                             <div class="data">
                                                 <span class="list-title">Glouton</span>
                                                 <div class="rating small no-margin" data-role="rating" data-stars="5"data-score="4"><ul style="margin-bottom: 0px;"><li></li><li></li><li></li><li></li><li></li></ul></div>
                                             </div>
                                         </div>
-                                    </a>    
+                                    </a>
 
                             </div>
                     </div>
@@ -201,44 +209,43 @@
             </div>
 
     </div>
-        <div class="panel-left"> 
+        <div class="panel-left">
            <div id="log-panel">
                 <div class="notifications">
-                    <div class="notif notifBar">             
+                    <div class="notif notifBar">
                         <div class="head">Notifications <img id="trashBtn" click="click(this)"  class="icon- " src="images/trash.png" width="20" style="float:right"  onmouseover="this.src='images/trashO.png'" onmouseout="this.src='images/trash.png'" border="0" alt="" ></div>
                         <div class="text"></div>
                     </div>
                 </div>
-               
+
                 <div id="wrapper">
                     <div id="scroller">
                         <ul>
-            
-           
+
+
                         </ul>
                     </div>
                 </div>
             </div>
-        
-           <div class="cytoscape-navigator"></div>            
+
+           <div class="cytoscape-navigator"></div>
         </div>
             <div id="cy"class="show"></div>
            <!-- <div id="control">
                 <button class="element" ><i class="icon-previous"></i></button>
                 <button class="element"id="timeline_play_btn" ><i class="icon-play"></i></button>
-                <button class="element" id="timeline_next_btn"><i class="icon-next"></i></button>                
+                <button class="element" id="timeline_next_btn"><i class="icon-next"></i></button>
                 <div id="timeline" class="progress-bar" data-role="progress-bar" data-color="bg-green"></div>
-                <button class="element" id="timeline_reset_btn"><i class="icon-cycle"></i></button>        
-               
+                <button class="element" id="timeline_reset_btn"><i class="icon-cycle"></i></button>
+
             </div>-->
-    
 
-    <div id="algoDialog" class="show" title="Algo">
-        <p> Hello </p>
-    </div>
-    </body>
+        <div id="algo-dialog" class="hide"></div>  
+    </body>    
     <script type="text/javascript" src="js/utility/declarations.js"></script>
-     <script type="text/javascript" src="js/graphe/algo.js"></script>
-     <script type="text/javascript" src="js/utility/control.js"></script>
-
+    <script type="text/javascript" src="js/graphe/algo.js"></script>
+    <script type="text/javascript" src="js/utility/control.js"></script>
+        
+    <!-- BDD -->
+    <script type="text/javascript" src="js/lib/bdd.js"></script>
 </html>

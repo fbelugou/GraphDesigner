@@ -1,26 +1,27 @@
-html,body { 
+html,body {
+  background: #1c1c1c;
   font: 14px helvetica neue, helvetica, arial, sans-serif;
   overflow: hidden;
   position: relative;
   height: 100%;
 
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    cursor: default;
-  
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  cursor: default;
+
 }
 
  .element-divider{
 	border-left:1px solid #898989;
 }
-.metro .navigation-bar .navigation-bar-content, .metro .navbar .navigation-bar-content, .metro .navigation-bar .navbar-content, .metro .navbar .navbar-content{
+.metro .navigation-bar .navigation-bar-content, .metro .navbar .navigation-bar-content, .metro .navigation-bar .navbar-content, .metro .navbar .navbar-content {
 	position: relative;z-index: 999;
 
-	background-color:#040404; 
+	background-color:#040404;
 	overflow: hidden;
 	border-bottom: 3px solid #000;
 
@@ -30,16 +31,16 @@ html,body {
 	-ms-transform-style: preserve-3d;
 	-o-transform-style: preserve-3d;
 	transform-style: preserve-3d;
-	
+
 	-webkit-backface-visibility: hidden;
 	-khtml-backface-visibility: hidden;
 	-moz-backface-visibility: hidden;
 	-ms-backface-visibility: hidden;
 	-o-backface-visibility: hidden;
 	backface-visibility: hidden;
-	
-	
-	
+
+
+
 	opacity: 0.9;
 	-webkit-transform-style: flat;
 	-khtml-transform-style: flat;
@@ -77,17 +78,22 @@ html,body {
 	border-bottom: none;
 }
 .panel-right {
+
+  z-index:  3;
 	position: fixed;
 	right: 0;
 	width:30%;
 	height: calc(100% - 45px);
 	background: #2e2e2e;
-    background-size: 100% 100%;
-    background-repeat: no-repeat;
-    border-left: 1px solid #898989;
-
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  border-left: 1px solid #898989;
+  transition-property: right;
+  transition-duration: 0.5s;
 }
-.panel-left{
+.panel-left {
+
+  z-index: 2;
 	position: fixed;
 	left: 0;
 	width:15%;
@@ -96,18 +102,23 @@ html,body {
 	border-right: 1px solid #898989;
 	overflow: hidden;
 	background: #2e2e2e;
-    background-size: 100% 100%;
-    background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  transition-property: left;
+  transition-duration: 0.5s;
 }
 #cy {
+
+  z-index: 1;
 	position: relative;
 	width: 55%;
 	height: 100%;
-	right:0;
 	left:15%;
 	top:0;
 	bottom: 5%;
-	  background: #1c1c1c;
+	background: #1c1c1c;
+  transition-property: left;
+  transition-duration: 0.5s;
 }
 #footer{
 	width: 100%;
@@ -218,43 +229,43 @@ html,body {
 .notif {
 	padding: 10px;
 	width: 100%;
-	
+
 	background-color: #1c1c1c;
 	-webkit-box-shadow: rgba(0,0,0,0.35) 0px 3px 6px, inset rgba(255,255,255,0.15) 0px 1px 0px, inset rgba(255,255,255,0.25) 0px 0px 1px;
 	-moz-box-shadow: rgba(0,0,0,0.35) 0px 3px 6px, inset rgba(255,255,255,0.15) 0px 1px 0px, inset rgba(255,255,255,0.25) 0px 0px 1px;
 	box-shadow: rgba(0,0,0,0.35) 0px 3px 6px, inset rgba(255,255,255,0.15) 0px 1px 0px, inset rgba(255,255,255,0.25) 0px 0px 1px;
-	
+
 	-webkit-transform-style: preserve-3d;
 	-khtml-transform-style: preserve-3d;
 	-moz-transform-style: preserve-3d;
 	-ms-transform-style: preserve-3d;
 	-o-transform-style: preserve-3d;
 	transform-style: preserve-3d;
-	
+
 	-webkit-backface-visibility: hidden;
 	-khtml-backface-visibility: hidden;
 	-moz-backface-visibility: hidden;
 	-ms-backface-visibility: hidden;
 	-o-backface-visibility: hidden;
 	backface-visibility: hidden;
-	
+
 }
 .notif .shine {
 	position: absolute;
 	width: 100%;
 	height: 100%;
-	
+
 	margin-left: 50%;
 	margin-top: -10px;
 	padding-bottom: 10px;
-	
+
 	-webkit-transform-style: flat;
 	-khtml-transform-style: flat;
 	-moz-transform-style: flat;
 	-ms-transform-style: flat;
 	-o-transform-style: flat;
 	transform-style: flat;
-	
+
 	-webkit-transform: skew(45deg);
 	-khtml-transform: skew(45deg);
 	-moz-transform: skew(45deg);
@@ -262,7 +273,7 @@ html,body {
 	-o-transform: skew(45deg);
 	transform: skew(45deg);
 
-	
+
 	background: -moz-linear-gradient(top, hsla(0,0%,100%,0.25) 0%, hsla(0,0%,100%,0) 100%);
 	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,hsla(0,0%,100%,0.2)), color-stop(100%,hsla(0,0%,100%,0)));
 	background: -webkit-linear-gradient(top, hsla(0,0%,100%,0.25) 0%,hsla(0,0%,100%,0) 100%);
@@ -304,7 +315,6 @@ html,body {
 	background-color: #141414;
 	border:none;
 	border-bottom: #898989;
-
 }
 
 
@@ -317,7 +327,6 @@ html,body {
 	height:calc(80% - 41px);
 	left: 0;
 	width: 100%;
-	
 	overflow: hidden;
 }
 
@@ -352,7 +361,7 @@ html,body {
 }
 
 #scroller li {
-	
+
 	opacity: 1;
 	border-bottom: 1px solid #898989;
 	border-top: 1px solid #898989;
@@ -368,13 +377,49 @@ html,body {
 .list{
 	width: 100%;
 }
-#algoDialog{
+#blockMask {
 	position: absolute;
-	top:48px;
-	left:15%;
-	width:55%;
+	z-index:0;
+	top:0;
+	left:0;
+	width:100%;
+	height:100%;
 
 }
+
+#algo-dialog{
+	position: absolute;
+	right:30%;
+	width:40%;
+	top: 48px;
+	height: calc(100% - 48px);
+	z-index: 1;
+	background-color: #ccc;
+	-webkit-animation: display -in 1s 1 fade;
+	-khtml-animation: display -in 1s 1 ease-out;
+	-moz-animation: display -in 1s 1 ease-out;
+	-ms-animation: display -in 1s 1 ease-out;
+	-o-animation: display -in 1s 1 ease-out;
+	animation: display -in 1s 1 ease-out;
+}
+#algo-dialog #title-bar{
+	top:0;
+	left:0;
+	height: 5%;
+	background-color: #AAA;
+}
+
+
+#image-algo{
+	float: left;
+	height: 25%;
+	width: 25%;
+	margin-right: 2%;
+}
+#algo-dialog>#description{
+	min-height: 20%
+}
+
 .hide{
 	display: none;
 }
