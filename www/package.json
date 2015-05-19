@@ -1,0 +1,21 @@
+{
+  "main": "index.html",
+  "name": "GraphDesigner",
+  "description": "GraphDesigner",
+  "version": "0.1.0",
+  "keywords": [ "demo", "node-webkit" ],
+  "window": {
+    "title": "GraphDesigner",
+    "icon": "images/arbre.png",
+    "toolbar": false,
+    "frame": true,
+    "width": 800,
+    "height": 500,
+    "position": "mouse",
+    "min_width": 800,
+    "min_height": 600
+  },
+  "webkit": {
+    "plugin": true
+  }
+}

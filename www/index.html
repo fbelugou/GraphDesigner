@@ -1,214 +1,235 @@
 <!DOCTYPE html>
 <html class="metro">
     <head>
+
         <meta charset="UTF-8">
-        <title>Blank App Designer Project Template</title>
+        <title>GraphDesigner</title>
         <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+         <!--VIEWPORT META-->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0">
 
         <!-- CSS -->
-        <link rel="stylesheet" href="css/animate.css">
-        <link rel="stylesheet" href="css/metro-bootstrap.min.css">
-        <link rel="stylesheet" href="css/iconFont.min.css">
-        <link href="css/cytoscape.js-navigator.css" rel="stylesheet" type="text/css" />
+        <link rel="stylesheet" href="css/animate.css" type="text/css">
+        <link rel="stylesheet" href="css/metro-bootstrap.min.css" type="text/css">
+        <link rel="stylesheet" href="css/iconFont.min.css" type="text/css">
+        <link rel="stylesheet" href="css/cytoscape.js-navigator.css" type="text/css">
+        <link rel="stylesheet" href="css/jquery.qtip.css" type="text/css">
 
-        <!-- SCRIPT -->
-        <script src="js/lib/jquery-2.1.1.min.js"></script>
+        <!-- SCRIPT BASE-->
+        <script src="js/jquery-2.1.1.min.js"></script>
         <script src="js/jquery-ui.min.js"></script>
-        <script src="js/metro.min.js"></script>
-        <script src="js/cytoscape.min.js"></script>
+        <script src="js/jquery.qtip.js"></script>
+        
+        <!-- SCRIPT LIBRARY-->
+        <script src="js/lib/cytoscape.min.js"></script>
         <script src="js/lib/cytoscape.js-navigator.js"></script>
-	    <script src="js/lib/randomColor.js"></script>
+        <script src="js/lib/cytoscape-qtip.js"></script>	    
+        <script src="js/lib/randomColor.js"></script>
         <script src="js/lib/iscroll.js"></script>
+        <script src="js/lib/metro.min.js"></script>
 
-  
+        <!-- EXPORTER -->
+        <script src="js/lib/filesaver.js"></script>
+        <script src="js/lib/jszip.min.js"></script>
+        
+        <!--INIT SCROLLBAR-->
+        <script type="text/javascript">
+            var scrollPanelLeft;
+            var scrollPanelRight;
+            function loaded () {
+                scrollPanelLeft = new IScroll('#log-panel>#wrapper', {
+                    scrollX: false, 
+                    scrollY: true,
+                    scrollbars: true,
+                    mouseWheel: true,
+                    interactiveScrollbars: true,
+                    shrinkScrollbars: 'scale',
+                    fadeScrollbars: true,
+                    useTransform: true,
+                    useTransition: true,
+                    click:true
 
+                });
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0">
+                 scrollPanelRight = new IScroll('.panel-right>#wrapper', {
+                    scrollX: false, 
+                    scrollY: true,
+                    scrollbars: true,
+                    mouseWheel: true,
+                    interactiveScrollbars: true,
+                    shrinkScrollbars: 'scale',
+                    fadeScrollbars: true,
+                    useTransform: true,
+                    useTransition: true,
+                    click:true
 
-    <script type="text/javascript">
+                });
+            }
 
-     var myScroll;
-
-        function loaded () {
-            myScroll = new IScroll('#wrapper', {
-
-                scrollbars: true,
-                mouseWheel: true,
-                interactiveScrollbars: true,
-                shrinkScrollbars: 'scale',
-                fadeScrollbars: true
-
-            });
-        }
-
-        document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
-
-       $(document).ready(function(){
-          $( "#trashBtn" ).click(function() {
-                $("#log-panel>#wrapper>#scroller> ul").html('');
-                $("#trashBtn").mouseout();
-                $("#trashBtn").src = "images/trash.png";
-
-            });
-        });
-    </script>
-
-
+            document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
+        </script>
     </head>
 
+
     <body onload="loaded()" ondragstart="return false;" ondrop="return false;">
+        <!--BLOCK MASK-->
         <div id="blockMask" class="show" title="Algo"></div>
+        
+        <!--MENU BAR-->
         <div class="navigation-bar dark" style="background-color: #040404">
-            <div class="navigation-bar-content">
+            <div class="navigation-bar-content">  
 
                 <div class="tablet-portrait">
-
-                  <a id="btn-viewer" href="#" class="element brand"><span class="icon-grid-view"></span> Graphe Viewer <sup>0.2</sup></a>
+                  <a id="btn-viewer" href="#" class="element brand"><span class="icon-grid-view"></span> Graphe Viewer <sup>0.6</sup></a>
                   <span class="element-divider"></span>
                   <a class="pull-menu" href="#"></a>
                   <span class="element-divider"></span>
                   <a class="element brand" href="#"><span class="icon-spin"></span></a>
-                  <a class="element brand" href="#"><span class="icon-printer"></span></a>
+                  <a class="element brand" id="exportLatexbtn" href="#"><span class="icon-printer"></span></a>
 
 
-                  <a id="btn-designer" href="#" class="element place-right"><span></span> Graphe Designer <sup>0.0</sup></a>
+                  <a id="btn-game" href="#" class="element place-right" style="border-left:1px solid #555"><span></span> Graphe Game <sup>0.1</sup></a>
+                  <a id="btn-designer" href="#" class="element place-right"><span></span> Graphe Designer <sup>0.3</sup></a>
+                  
                   <span class="element-divider place-right"></span>
                   <span class="element-divider place-right"></span>
-
                 </div>
             </div>
         </div>
 
-
+        <!--PANEL ALGO-->
         <div class="panel-right">
-            <div id ="menu-algo" class="accordion with-marker place-left" data-role="accordion" data-closeany="false">
-                 <div class="accordion-frame">
-                    <a class="heading  fg-white collapsed" href="#"><img class="icon-" src="images/parcoursW.png" width="20"></img> Parcours </a>
-                    <div class="content" style="display: none;">
-                        <div id ="list-algo" class="listview small">
+        <div id="wrapper">
+                <div id="scroller">
+                <ul>
+                <li>
+                    <div id ="menu-algo" class="accordion with-marker place-left" data-role="accordion" data-closeany="false">
+                         <div class="accordion-frame">
+                            <a class="heading  fg-white collapsed" href="#"><img class="icon-" src="images/parcoursW.png" width="20"></img> Parcours </a>
+                            <div class="content" style="display: none;">
+                                <div id ="list-algo" class="listview small">
 
-                                    <a href="#" class="list" style = "width:100%">
-                                        <div class="list-content"  data="parcoursProfondeur_D">
-                                            <img src="images/.jpg" class="span1 shadow " style="float:left">
-                                            <div class="data">
-                                                <span class="list-title">Parcours Profondeur</span>
-                                                <div class="rating small no-margin" data-role="rating" data-stars="5"data-score="4"><ul style="margin-bottom: 0px;"><li></li><li></li><li></li><li></li><li></li></ul></div>
-                                            </div>
-                                        </div>
-                                    </a>
+                                            <a href="#" class="list" style = "width:100%">
+                                                <div class="list-content"  data="parcoursProfondeur_D">
+                                                    <img src="images/edouardLucas.jpg" class="span1 shadow " style="float:left; margin-right: 2%;">
+                                                    <div class="data">
+                                                        <span class="list-title">Parcours Profondeur</span>
+                                                    </div>
+                                                </div>
+                                            </a>
 
-                                     <a href="#" class="list" style = "width:100%">
-                                        <div class="list-content"  data="parcoursLargeur_D">
-                                            <img src="images/.jpg" class="span1 shadow " style="float:left">
-                                            <div class="data">
-                                                <span class="list-title">Parcours Largeur</span>
-                                                <div class="rating small no-margin" data-role="rating" data-stars="5"data-score="4"><ul style="margin-bottom: 0px;"><li></li><li></li><li></li><li></li><li></li></ul></div>
-                                            </div>
-                                        </div>
-                                    </a>
-                            </div>
-                    </div>
-                </div>
-                <div class="accordion-frame">
-                    <a class="heading  fg-white collapsed" href="#"><img class="icon-" src="images/arbreW.png" width="20"></img> Arbre </a>
-                    <div class="content" style="display: none;">
-                           <div id ="list-algo" class="listview small">
-                                    <a href="#" class="list" style = "width:100%">
-                                        <div class="list-content"  data="kruskal_D">
-                                            <img src="images/kruskal.jpg" class="span1 shadow " style="float:left">
-                                            <div class="data">
-                                                <span class="list-title">Kruskal</span>
-                                                <div class="rating small no-margin" data-role="rating" data-stars="5"data-score="4"><ul style="margin-bottom: 0px;"><li></li><li></li><li></li><li></li><li></li></ul></div>
-                                            </div>
-                                        </div>
-                                    </a>
-
-                                 <a href="#" class="list" style = "width:100%">
-                                        <div class="list-content"  data="prim_D">
-                                            <img src="images/Robert-C-Prim.jpg" class="span1 shadow " style="float:left">
-                                            <div class="data">
-                                                <span class="list-title">Prim</span>
-                                                <div class="rating small no-margin" data-role="rating" data-stars="5"data-score="4"><ul style="margin-bottom: 0px;"><li></li><li></li><li></li><li></li><li></li></ul></div>
-                                            </div>
-                                        </div>
-                                    </a>
-                            </div>
-                    </div>
-                </div>
-                <div class="accordion-frame">
-                    <a class="heading  fg-white collapsed" href="#"><img class="icon-" src="images/courtCheminW.png" width="20"></img> Chemins</a>
-                    <div class="content" style="display: none;">
-                       <div id ="list-algo" class="listview small">
-                                    <a href="#" class="list" style = "width:100%">
-                                        <div class="list-content"  data="circuitEulerien_D">
-                                            <img src="images/euler.jpg" class="span1 shadow " style="float:left">
-                                            <div class="data">
-                                                <span class="list-title">Circuit Eulerien</span>
-                                                <div class="rating small no-margin" data-role="rating" data-stars="5"data-score="4"><ul style="margin-bottom: 0px;"><li></li><li></li><li></li><li></li><li></li></ul></div>
-                                            </div>
-                                        </div>
-                                    </a>
-
-                                 <a href="#" class="list" style = "width:100%">
-                                        <div class="list-content"  data="cheminEulerien_D">
-                                            <img src="images/euler.jpg" class="span1 shadow " style="float:left">
-                                            <div class="data">
-                                                <span class="list-title">Chemin Eulerien</span>
-                                                <div class="rating small no-margin" data-role="rating" data-stars="5"data-score="4"><ul style="margin-bottom: 0px;"><li></li><li></li><li></li><li></li><li></li></ul></div>
-                                            </div>
-                                        </div>
-                                    </a>
-                                  <a href="#" class="list" style = "width:100%">
-                                        <div class="list-content"  data="dijkstra_D">
-                                            <img src="images/dijkstra.jpg" class="span1 shadow " style="float:left">
-                                            <div class="data">
-                                                <span class="list-title">Dijkstra</span>
-                                                <div class="rating small no-margin" data-role="rating" data-stars="5"data-score="4"><ul style="margin-bottom: 0px;"><li></li><li></li><li></li><li></li><li></li></ul></div>
-                                            </div>
-                                        </div>
-                                    </a>
-                                  <a href="#" class="list" style = "width:100%">
-                                        <div class="list-content"  data="bellman_D">
-                                            <img src="images/bellman.jpg" class="span1 shadow " style="float:left">
-                                            <div class="data">
-                                                <span class="list-title">Bellman</span>
-                                                <div class="rating small no-margin" data-role="rating" data-stars="5"data-score="4"><ul style="margin-bottom: 0px;"><li></li><li></li><li></li><li></li><li></li></ul></div>
-                                            </div>
-                                        </div>
-                                    </a>
+                                             <a href="#" class="list" style = "width:100%">
+                                                <div class="list-content"  data="parcoursLargeur_D">
+                                                    <img src="images/bfs.jpg" class="span1 shadow " style="float:left; margin-right: 2%;">
+                                                    <div class="data">
+                                                        <span class="list-title">Parcours Largeur</span>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                    </div>
                             </div>
                         </div>
-                </div>
-                <div class="accordion-frame">
-                    <a class="heading fg-white collapsed" href="#"><img class="icon-" src="images/painterW.png" width="20"></img> Coloration</a>
-                    <div class="content" style="display: none;">
-                           <div id ="list-algo" class="listview small">
-                                    <a href="#" class="list" style = "width:100%">
-                                        <div class="list-content"  data="naif_D">
-                                            <img src="images/.jpg" class="span1 shadow " style="float:left">
-                                            <div class="data">
-                                                <span class="list-title">Naif</span>
-                                                <div class="rating small no-margin" data-role="rating" data-stars="5"data-score="4"><ul style="margin-bottom: 0px;"><li></li><li></li><li></li><li></li><li></li></ul></div>
-                                            </div>
-                                        </div>
-                                    </a>
+                        <div class="accordion-frame">
+                            <a class="heading  fg-white collapsed" href="#"><img class="icon-" src="images/arbreW.png" width="20"></img> Arbre </a>
+                            <div class="content" style="display: none;">
+                                   <div id ="list-algo" class="listview small">
+                                            <a href="#" class="list" style = "width:100%">
+                                                <div class="list-content"  data="kruskal_D">
+                                                    <img src="images/kruskal.jpg" class="span1 shadow " style="float:left; margin-right: 2%;">
+                                                    <div class="data">
+                                                        <span class="list-title">Kruskal</span>
+                                                    </div>
+                                                </div>
+                                            </a>
 
-                                 <a href="#" class="list" style = "width:100%">
-                                        <div class="list-content"  data="glouton_D">
-                                            <img src="images/.jpg" class="span1 shadow " style="float:left">
-                                            <div class="data">
-                                                <span class="list-title">Glouton</span>
-                                                <div class="rating small no-margin" data-role="rating" data-stars="5"data-score="4"><ul style="margin-bottom: 0px;"><li></li><li></li><li></li><li></li><li></li></ul></div>
-                                            </div>
-                                        </div>
-                                    </a>
-
+                                         <!--<a href="#" class="list" style = "width:100%">
+                                                <div class="list-content"  data="prim_D">
+                                                    <img src="images/Robert-C-Prim.jpg" class="span1 shadow " style="float:left; margin-right: 2%;">
+                                                    <div class="data">
+                                                        <span class="list-title">Prim</span>
+                                                    </div>
+                                                </div>
+                                            </a>-->
+                                    </div>
                             </div>
+                        </div>
+                        <div class="accordion-frame">
+                            <a class="heading  fg-white collapsed" href="#"><img class="icon-" src="images/courtCheminW.png" width="20"></img> Chemins</a>
+                            <div class="content" style="display: none;">
+                               <div id ="list-algo" class="listview small">
+                                            <!--
+                                            <a href="#" class="list" style = "width:100%">
+                                                <div class="list-content"  data="circuitEulerien_D">
+                                                    <img src="images/euler.jpg" class="span1 shadow " style="float:left; margin-right: 2%;">
+                                                    <div class="data">
+                                                        <span class="list-title">Circuit Eulerien</span>
+                                                    </div>
+                                                </div>
+                                            </a>
+
+                                         <a href="#" class="list" style = "width:100%">
+                                                <div class="list-content"  data="cheminEulerien_D">
+                                                    <img src="images/euler.jpg" class="span1 shadow " style="float:left; margin-right: 2%;">
+                                                    <div class="data">
+                                                        <span class="list-title">Chemin Eulerien</span>
+                                                    </div>
+                                                </div>
+                                            </a>-->
+                                          <a href="#" class="list" style = "width:100%">
+                                                <div class="list-content"  data="dijkstra_D">
+                                                    <img src="images/dijkstra.jpg" class="span1 shadow " style="float:left; margin-right: 2%;">
+                                                    <div class="data">
+                                                        <span class="list-title">Dijkstra</span>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                            <!--
+                                          <a href="#" class="list" style = "width:100%">
+                                                <div class="list-content"  data="bellman_D">
+                                                    <img src="images/bellman.jpg" class="span1 shadow " style="float:left; margin-right: 2%;">
+                                                    <div class="data">
+                                                        <span class="list-title">Bellman</span>
+                                                    </div>
+                                                </div>
+                                            </a>-->
+                                    </div>
+                                </div>
+                        </div>
+                        <div class="accordion-frame">
+                            <a class="heading fg-white collapsed" href="#"><img class="icon-" src="images/painterW.png" width="20"></img> Coloration</a>
+                            <div class="content" style="display: none;">
+                                   <div id ="list-algo" class="listview small">
+                                            <a href="#" class="list" style = "width:100%">
+                                                <div class="list-content"  data="naif_D">
+                                                    <img src="images/naif.jpg" class="span1 shadow " style="float:left; margin-right: 2%;">
+                                                    <div class="data">
+                                                        <span class="list-title">Naif</span>
+                                                    </div>
+                                                </div>
+                                            </a>
+
+                                         <a href="#" class="list" style = "width:100%">
+                                                <div class="list-content"  data="glouton_D">
+                                                    <img src="images/glouton.jpg" class="span1 shadow " style="float:left; margin-right: 2%;">
+                                                    <div class="data">
+                                                        <span class="list-title">Glouton</span>
+                                                    </div>
+                                                </div>
+                                            </a>
+
+                                    </div>
+                            </div>
+                        </div>
                     </div>
+                </li>
+                </ul>
                 </div>
+            </div>
             </div>
 
     </div>
+
+    <!--PANEL LEFT-->
         <div class="panel-left">
            <div id="log-panel">
                 <div class="notifications">
@@ -227,25 +248,69 @@
                     </div>
                 </div>
             </div>
-
-           <div class="cytoscape-navigator"></div>
         </div>
-            <div id="cy"class="show"></div>
-           <!-- <div id="control">
-                <button class="element" ><i class="icon-previous"></i></button>
-                <button class="element"id="timeline_play_btn" ><i class="icon-play"></i></button>
-                <button class="element" id="timeline_next_btn"><i class="icon-next"></i></button>
-                <div id="timeline" class="progress-bar" data-role="progress-bar" data-color="bg-green"></div>
-                <button class="element" id="timeline_reset_btn"><i class="icon-cycle"></i></button>
+        <!--CYTOSCAPE NAVIGATOR-->
+        <div class="cytoscape-navigator"></div>
 
-            </div>-->
+        <!--PANEL EDITOR-->
+        <div id="panel-right-editor" class="show">
+            <div class="notif notifBar"><div class="head">Détails du graphe</div></div>
+            <div id="general">Général</div>
+            <div id="general-form">
+                <div><span class="caption">Nombre de sommets</span><label class="input-control text">
 
-        <div id="algo-dialog" class="hide"></div>  
-    </body>    
+                    <input id="nbSommets" type="number" readonly="readonly"/>
+                    <div class="button-group">
+                        <button id="btnAddNode" class="button">+</button>
+                        <button id="btnRemoveNode" class="button">-</button>
+                    </div>
+
+                </label></div>
+                <div><label class="input-control checkbox">
+
+                    <input id="bOriente" type="checkbox"><span class="check"></span><span class="caption">orienté</span>
+
+                </label></div>
+                <div><label class="input-control checkbox">
+
+                    <input id="bValue" type="checkbox"><span class="check"></span><span class="caption">valué</span>
+
+                </label></div>
+            </div>
+
+            <div id="selection">Selection<button id="btnSelectAll" class="button"><span style="font-size:14px">tous selectionner</span></button></div>
+            <div id="selection-form">
+
+            </div>
+        </div>
+
+        <!--PANEL GAME-->
+        <div id="panel-right-game" class="show">
+            <div class="notif notifBar"><div class="head">Jeu</div></div>
+            <div id="recap-game"><span id="reponse">Rendre le graphe planaire</span><button id="btnNewGraph" class="button"><span id="newGameGraphe" style="font-size:14px">Nouveau graphe</span></button></div>
+            <script>
+            $("#newGameGraphe").click(function () {
+
+                monGraphe = new Graphe(window["graph"+String(Math.floor(Math.random() * 632) + 1)], false);
+
+            });
+            </script>
+        </div>
+
+        <!--CYTOSCAPE-->
+        <div id="cy"class="show"></div>
+
+        <!--POPUP DIALOG ALGO-->
+        <div id="algo-dialog" class="hide"></div>
+        
+    </body>
+
     <script type="text/javascript" src="js/utility/declarations.js"></script>
     <script type="text/javascript" src="js/graphe/algo.js"></script>
     <script type="text/javascript" src="js/utility/control.js"></script>
         
-    <!-- BDD -->
+    <!-- BDD / LATEX -->
     <script type="text/javascript" src="js/lib/bdd.js"></script>
+    <script src="js/lib/latexBdd.js"></script>
+
 </html>
