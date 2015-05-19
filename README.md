@@ -1,3 +1,3 @@
 GraphDesigner
 =============
-coucou2
+Application pédagogique sur la théorie des graphes.
